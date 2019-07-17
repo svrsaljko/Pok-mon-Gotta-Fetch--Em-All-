@@ -1,0 +1,25 @@
+{
+  "PokemonList": [
+    {
+      "pokemonId": "1",
+      "pokemonName": "Bulbasaur",
+      "pokemonType": ["Grass", "Poison"],
+      "evolution": "1",
+      "level": "5"
+    },
+    {
+      "pokemonId": "4",
+      "pokemonName": "Charmander",
+      "pokemonType": ["Fire"],
+      "evolution": "1",
+      "level": "5"
+    },
+    {
+      "pokemonId": "7",
+      "pokemonName": "Squirtle",
+      "pokemonType": ["Water"],
+      "evolution": "1",
+      "level": "5"
+    }
+  ]
+}
