@@ -25748,17 +25748,148 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"App.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"src/components/Header.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.App = void 0;
+exports.default = Header;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Header() {
+  return _react.default.createElement("div", {
+    className: "Header"
+  }, _react.default.createElement("h3", {
+    className: "Title"
+  }, " POKEMON"));
+}
+},{"react":"node_modules/react/index.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"App.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/pokemonImages/Squirtle.png":[function(require,module,exports) {
+module.exports = "/Squirtle.27802381.png";
+},{}],"src/pokemonImages/Bulbasaur.png":[function(require,module,exports) {
+module.exports = "/Bulbasaur.af347b8d.png";
+},{}],"src/pokemonImages/Charmander.png":[function(require,module,exports) {
+module.exports = "/Charmander.efb1f994.png";
+},{}],"src/pokemonImages/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "Bulbasaur", {
+  enumerable: true,
+  get: function () {
+    return _Bulbasaur.default;
+  }
+});
+Object.defineProperty(exports, "Charmander", {
+  enumerable: true,
+  get: function () {
+    return _Charmander.default;
+  }
+});
+Object.defineProperty(exports, "Squirtle", {
+  enumerable: true,
+  get: function () {
+    return _Squirtle.default;
+  }
+});
+
+var _Bulbasaur = _interopRequireDefault(require("./Bulbasaur.png"));
+
+var _Charmander = _interopRequireDefault(require("./Charmander.png"));
+
+var _Squirtle = _interopRequireDefault(require("./Squirtle.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./Bulbasaur.png":"src/pokemonImages/Bulbasaur.png","./Charmander.png":"src/pokemonImages/Charmander.png","./Squirtle.png":"src/pokemonImages/Squirtle.png"}],"src/components/PokemonImage.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _index = require("../pokemonImages/index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -25778,21 +25909,138 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var pokemon = {
+  pokemon: {
+    Squirtle: _index.Squirtle,
+    Charmander: _index.Charmander,
+    Bulbasaur: _index.Bulbasaur
+  }
+};
+
+var PokemonImage =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(PokemonImage, _React$Component);
+
+  function PokemonImage() {
+    _classCallCheck(this, PokemonImage);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(PokemonImage).apply(this, arguments));
+  }
+
+  _createClass(PokemonImage, [{
+    key: "render",
+    value: function render() {
+      console.log("evo ga: ", this.props.pokemonName);
+      console.log("pokemon ", pokemon.pokemon);
+      return _react.default.createElement("img", {
+        src: _index.Bulbasaur,
+        alt: "Pokemon picture"
+      });
+    }
+  }]);
+
+  return PokemonImage;
+}(_react.default.Component);
+
+exports.default = PokemonImage;
+},{"react":"node_modules/react/index.js","../pokemonImages/index":"src/pokemonImages/index.js"}],"App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.App = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _Header = _interopRequireDefault(require("./src/components/Header"));
+
+require("./App.css");
+
+var _Squirtle = _interopRequireDefault(require("./src/pokemonImages/Squirtle.png"));
+
+var _PokemonImage = _interopRequireDefault(require("./src/components/PokemonImage"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var NEW_POKEMON_URL = "http://localhost:8000/pokemon/new";
+
 var App =
 /*#__PURE__*/
 function (_Component) {
   _inherits(App, _Component);
 
   function App() {
+    var _getPrototypeOf2;
+
+    var _this;
+
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(App).apply(this, arguments));
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(App)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      pokemon: "",
+      birthdate: null
+    });
+
+    return _this;
   }
 
   _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      fetch(NEW_POKEMON_URL).then(function (res) {
+        res.json().then(function (res) {
+          _this2.setState({
+            pokemon: res.pokemon.Pokemon,
+            birthdate: res.pokemon.birthdate
+          });
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, "App");
+      //console.log(this.state.pokemon.pokemonId);
+      return _react.default.createElement("div", {
+        className: "SiteContainer"
+      }, _react.default.createElement(_Header.default, null), _react.default.createElement("div", {
+        className: "PokemonContainer"
+      }, _react.default.createElement("div", {
+        className: "PokemonData"
+      }, _react.default.createElement(_PokemonImage.default, {
+        pokemonName: this.state.pokemon.pokemonName
+      }), _react.default.createElement("div", null, "PokemonId:", this.state.pokemon.pokemonId), _react.default.createElement("div", null, "PokemonName:", this.state.pokemon.pokemonName))));
     }
   }]);
 
@@ -25802,7 +26050,12 @@ function (_Component) {
 exports.App = App;
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./src/components/Header":"src/components/Header.js","./App.css":"App.css","./src/pokemonImages/Squirtle.png":"src/pokemonImages/Squirtle.png","./src/components/PokemonImage":"src/components/PokemonImage.js"}],"index.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -25811,10 +26064,12 @@ var _reactDom = require("react-dom");
 
 var _App = _interopRequireDefault(require("./App"));
 
+require("./index.css");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _reactDom.render)(_react.default.createElement(_App.default, null), document.getElementById("root"));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./App":"App.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./App":"App.js","./index.css":"index.css"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -25842,7 +26097,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59020" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61354" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

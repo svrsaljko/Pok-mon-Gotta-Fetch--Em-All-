@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const Pokemon = require("./Pokemon.js");
 
 const PORT = 8000;
@@ -8,6 +9,8 @@ const poke1 = new Pokemon();
 
 console.log("poke1", poke1.Pokemon.pokemonName);
 console.log("poke1 full", poke1);
+
+app.use(cors({ origin: "http://localhost:1234" }));
 
 app.get("/pokemon/new", (req, res) => {
   const pokemon = new Pokemon();
