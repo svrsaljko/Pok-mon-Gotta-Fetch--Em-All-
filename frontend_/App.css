@@ -1,13 +1,21 @@
 .SiteContainer {
   display: flex;
   flex-direction: column;
-
-  margin-top: 3rem;
 }
 
 .Header {
-  border-bottom: 1px solid red;
+  background-color: #171a19;
   text-align: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.Title {
+  font-weight: bold;
+}
+
+.PokemonDescription {
+  width: 300px;
 }
 
 .PokemonContainer {
@@ -17,13 +25,13 @@
 }
 
 .PokemonImage {
-  border: 3px solid black;
-
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
 }
 
 .PokemonData {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  margin-top: 6rem;
 }
