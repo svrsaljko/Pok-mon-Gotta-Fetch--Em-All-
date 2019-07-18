@@ -1,16 +1,27 @@
 const express = require("express");
 const cors = require("cors");
+
 const Pokemon = require("./Pokemon.js");
+const PokeTimer = require("./pokeTimer.js");
 
 const PORT = 8000;
 const app = express();
 
-const poke1 = new Pokemon();
+// const ti = new PokeTimer();
+// console.log("a", ti);
 
-console.log("poke1", poke1.Pokemon.pokemonName);
-console.log("poke1 full", poke1);
+// const poke1 = new Pokemon();
+
+// console.log("poke1", poke1.Pokemon.pokemonName);
+// console.log("poke1 full", poke1);
 
 app.use(cors({ origin: "http://localhost:1234" }));
+
+app.get("/pokemon/timer", (req, res) => {
+  const timer = new PokeTimer();
+
+  res.json({ timer });
+});
 
 app.get("/pokemon/new", (req, res) => {
   const pokemon = new Pokemon();

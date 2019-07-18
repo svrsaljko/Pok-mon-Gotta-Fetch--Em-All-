@@ -4,6 +4,7 @@ import PokemonImage from "./src/components/PokemonImage";
 import "./App.css";
 
 const NEW_POKEMON_URL = "http://localhost:8000/pokemon/new";
+const TIMER_URL = "http://localhost:8000/pokemon/timer";
 
 export class App extends Component {
   state = {
@@ -11,10 +12,25 @@ export class App extends Component {
     birthdate: null,
     pokemonId: "0",
     pokemonType: "",
-    pokemonDescription: ""
+    pokemonDescription: "",
+    timer: 1,
+    countdown: 1,
+    expiration: null
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    fetch(TIMER_URL).then(res => {
+      res.json().then(res => {
+        console.log("timer", res.timer.expiration);
+        let expiration = res.timer.expiration;
+        let countdown = new Date(expiration).getTime() - new Date().getTime();
+        console.log("did mount expiration", expiration);
+        this.setState({ expiration });
+        //  this.setState({ countdown, timer: countdown });
+        this.pokeTimerCall();
+      });
+    });
+  }
 
   get3D = num => {
     if (num.toString().length == 1) {
@@ -24,10 +40,29 @@ export class App extends Component {
     } else return "000";
   };
 
+  pokeTimerCall = () => {
+    let { timer, expiration } = this.state;
+    console.log("expiration", expiration);
+    let countdown = new Date(expiration).getTime();
+    console.log("countdown: ", countdown);
+    if (expiration != null) {
+      let x = setInterval(() => {
+        let now = new Date().getTime();
+        console.log("now", now);
+        let distance = countdown - now;
+        //console.log("DISTANCE", distance);
+        this.setState({ timer: distance });
+        if (distance < 0) {
+          clearInterval(x);
+        }
+      }, 1000);
+    }
+  };
+
   newPokemonOnClick = () => {
     fetch(NEW_POKEMON_URL).then(res => {
       res.json().then(res => {
-        console.log("pokemon", res.pokemon.Pokemon.description);
+        //console.log("pokemon", res.pokemon.Pokemon.description);
         this.setState({
           pokemon: res.pokemon.Pokemon,
           pokemonId: res.pokemon.Pokemon.pokemonId,
@@ -41,7 +76,9 @@ export class App extends Component {
   };
 
   render() {
-    console.log("opis: ", this.state.pokemonDescription);
+    //console.log("opis: ", this.state.pokemonDescription);
+    //let { timer } = this.state;
+    // console.log("timer: ", this.state.timer);
     let { pokemonType } = this.state;
     if (pokemonType.length > 1) {
       pokemonType = pokemonType.join("  ");
@@ -69,7 +106,7 @@ export class App extends Component {
           </div>
           <div className="TimerContainer">
             Time to new pokemon:
-            <div> 1:00</div>
+            <div>{Math.floor((this.state.timer % (1000 * 60)) / 1000)}s</div>
           </div>
         </div>
       </div>
@@ -78,3 +115,30 @@ export class App extends Component {
 }
 
 export default App;
+
+// var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
+
+// // Update the count down every 1 second
+// var x = setInterval(function() {
+//   // Get today's date and time
+//   var now = new Date().getTime();
+
+//   // Find the distance between now and the count down date
+//   var distance = countDownDate - now;
+
+//   // Time calculations for days, hours, minutes and seconds
+//   // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+//   // var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//   // var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+//   // var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+//   // Display the result in the element with id="demo"
+//   document.getElementById("demo").innerHTML =
+//     days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+//   // If the count down is finished, write some text
+//   if (distance < 0) {
+//     clearInterval(x);
+//     document.getElementById("demo").innerHTML = "EXPIRED";
+//   }
+// }, 1000);
