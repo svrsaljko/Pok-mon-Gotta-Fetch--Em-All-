@@ -1,0 +1,46 @@
+.SiteContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.Header {
+  background-color: #171a19;
+  text-align: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.Title {
+  font-weight: bold;
+}
+
+.PokemonDescription {
+  width: 300px;
+}
+
+.UserContainer {
+  margin-top: 6rem;
+  margin-left: 6rem;
+}
+.TimerContainer {
+  margin-top: 6rem;
+  margin-right: 6rem;
+}
+
+.PokemonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.PokemonImage {
+  width: 200px;
+  height: 200px;
+}
+
+.PokemonData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 6rem;
+}
