@@ -49,7 +49,11 @@ export default class PokemonImage extends React.Component {
   };
 
   render() {
-    let index = this.returnChosenPokemon();
+    let index = 0;
+    if (!this.props.enableNewPokemon) {
+      index = this.returnChosenPokemon();
+    }
+
     return (
       <img
         className="PokemonImage"

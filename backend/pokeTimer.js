@@ -1,8 +1,11 @@
 //const Pokemon = require("./pokemon");
 
 const UNIT = 1000;
-const SECONDS = 10;
-const TIME = UNIT * SECONDS;
+const SECONDS = 60;
+const MINUTES = 60;
+const HOURS = 24;
+//const TIME = 2 * UNIT * SECONDS * MINUTES * HOURS;
+const TIME = (SECONDS * UNIT) / 12;
 
 class PokeTimer {
   constructor() {
@@ -11,7 +14,7 @@ class PokeTimer {
   }
 
   calculateExpiration() {
-    return new Date(Date.now() + TIME);
+    return new Date(Date.now() + TIME + 1500);
   }
 }
 
