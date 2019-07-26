@@ -11,6 +11,7 @@ class PokeTimer {
   constructor() {
     //this.pokemon = null;
     this.expiration = this.calculateExpiration();
+    this.SECOND = UNIT;
   }
 
   calculateExpiration() {

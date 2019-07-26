@@ -58,6 +58,10 @@ export default class PokemonImage extends React.Component {
       <img
         className="PokemonImage"
         src={pokemon[index]}
+        style={{
+          opacity:
+            index === 0 ? (this.props.enableNewPokemon ? "1" : "0.3") : "1"
+        }}
         //src={Caterpie}
         alt="Pokemon picture"
       />

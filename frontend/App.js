@@ -5,22 +5,25 @@ import "./App.css";
 
 const NEW_POKEMON_URL = "http://localhost:8000/pokemon/new";
 const TIMER_URL = "http://localhost:8000/pokemon/timer";
+const SECOND = 1000;
 
 export class App extends Component {
   state = {
     pokemon: "",
+    pokemonName: "",
     birthdate: null,
-    pokemonId: "0",
+    pokemonId: "???",
     pokemonType: "",
     pokemonDescription: "",
     timer: 1,
     countdown: 1,
     expiration: null,
-    enableNewPokemon: true
+    enableNewPokemon: false
   };
 
   componentDidMount() {
     this.pokeTimerCall();
+    //this.setState({ enableNewPokemon: false });
   }
 
   get3D = num => {
@@ -28,7 +31,7 @@ export class App extends Component {
       return "00" + num;
     } else if (num.toString().length == 2) {
       return "0" + num;
-    } else return "000";
+    } else return "???";
   };
 
   pokeTimerCall = () => {
@@ -36,41 +39,40 @@ export class App extends Component {
       res.json().then(res => {
         expiration = res.timer.expiration;
         let { expiration } = res.timer;
-        console.log(
-          "CALL: poketimer expiration",
-          new Date(expiration).getTime() - new Date().getTime()
-        );
-
-        let timer = setInterval(() => {
+        let countdown = new Date(expiration).getTime();
+        let doEachInterval = () => {
           let now = new Date().getTime();
-          let countdown = new Date(expiration).getTime();
           let distance = countdown - now;
           this.setState({ timer: distance });
           if (distance < 0) {
             this.setState({ timer: 0, enableNewPokemon: true });
             clearInterval(timer);
           }
-        }, 1000);
+        };
+        let timer = setInterval(doEachInterval, SECOND);
       });
     });
   };
 
   newPokemonOnClick = () => {
-    fetch(NEW_POKEMON_URL).then(res => {
-      res.json().then(res => {
-        console.log("ima li te", res.pokemon.expiration);
-        this.setState({
-          pokemon: res.pokemon.Pokemon,
-          pokemonId: res.pokemon.Pokemon.pokemonId,
-          birthdate: res.pokemon.birthdate,
-          pokemonType: res.pokemon.Pokemon.pokemonType,
-          pokemonDescription: res.pokemon.Pokemon.description,
-          expiration: res.pokemon.expiration,
-          enableNewPokemon: false
+    if (this.state.enableNewPokemon) {
+      fetch(NEW_POKEMON_URL).then(res => {
+        res.json().then(res => {
+          console.log("ima li te", res.pokemon.expiration);
+          this.setState({
+            pokemon: res.pokemon.Pokemon,
+            pokemonName: res.pokemon.Pokemon.pokemonName,
+            pokemonId: res.pokemon.Pokemon.pokemonId,
+            birthdate: res.pokemon.birthdate,
+            pokemonType: res.pokemon.Pokemon.pokemonType,
+            pokemonDescription: res.pokemon.Pokemon.description,
+            expiration: res.pokemon.expiration,
+            enableNewPokemon: false
+          });
+          this.pokeTimerCall();
         });
-        this.pokeTimerCall();
       });
-    });
+    }
   };
 
   render() {
@@ -87,17 +89,35 @@ export class App extends Component {
     }
 
     let pokeData = () => {
-      let data = this.state.enableNewPokemon ? (
-        <div> #??? </div>
-      ) : (
+      let data = (
         <div>
-          <div>#{this.get3D(this.state.pokemonId)}</div>
-          <div>{this.state.pokemon.pokemonName}</div>
-          <div> {pokemonType} </div>
-          <div className="PokemonDescription">
-            <p>{"\n"}</p>
-            {this.state.pokemonDescription}
-          </div>
+          {this.state.enableNewPokemon ? (
+            <div>
+              <div>#??? </div>
+              <div>{"\n"} </div>
+              <div> {"\n"} </div>
+              <div className="PokemonDescription">
+                <p>{"\n"}</p>
+                {"\n"}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div
+                style={{
+                  opacity: this.state.pokemonName.length > 0 ? "1" : "0.3"
+                }}
+              >
+                #{this.get3D(this.state.pokemonId)}
+              </div>
+              <div>{this.state.pokemonName}</div>
+              <div> {pokemonType} </div>
+              <div className="PokemonDescription">
+                <p>{"\n"}</p>
+                {this.state.pokemonDescription}
+              </div>
+            </div>
+          )}
         </div>
       );
       return data;
@@ -114,7 +134,13 @@ export class App extends Component {
             <div>COINS: 100</div>
             <button className="CollectCoins">COLLECT</button>
           </div>
-          <div className="PokemonData" onClick={this.newPokemonOnClick}>
+          <div
+            style={{
+              cursor: this.state.enableNewPokemon ? "pointer" : "default"
+            }}
+            className="PokemonData"
+            onClick={this.newPokemonOnClick}
+          >
             <PokemonImage
               enableNewPokemon={this.state.enableNewPokemon}
               pokemonName={this.state.pokemon.pokemonName}
@@ -123,9 +149,13 @@ export class App extends Component {
           </div>
           <div className="TimerContainer">
             Time to new pokemon:
-            <div>
-              {days + "d " + hours + "h " + minutes + "m " + seconds + "s "}
-            </div>
+            {this.state.enableNewPokemon ? (
+              <div>Catch new pokemon!!</div>
+            ) : (
+              <div>
+                {days + "d " + hours + "h " + minutes + "m " + seconds + "s "}
+              </div>
+            )}
           </div>
         </div>
       </div>
