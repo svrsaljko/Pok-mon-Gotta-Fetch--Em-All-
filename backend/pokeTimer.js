@@ -15,7 +15,7 @@ class PokeTimer {
   }
 
   calculateExpiration() {
-    return new Date(Date.now() + TIME + 1500);
+    return new Date(Date.now() + TIME + 500);
   }
 }
 

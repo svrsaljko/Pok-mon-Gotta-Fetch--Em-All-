@@ -18,12 +18,52 @@ export class App extends Component {
     timer: 1,
     countdown: 1,
     expiration: null,
-    enableNewPokemon: false
+    enableNewPokemon: false,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  };
+
+  enableNewPokemon = () => {
+    return new Promise((resolve, reject) => {
+      resolve(
+        this.setState({
+          enableNewPokemon: true
+        })
+      );
+    });
+  };
+
+  initializeExpirationTime = () => {
+    return fetch(TIMER_URL).then(res => {
+      res.json().then(res => {
+        //console.log("DID MOUNT RES", res.timer.expiration);
+        let distance = new Date(res.timer.expiration).getTime();
+        let now = new Date().getTime();
+        distance = distance - now;
+        console.log("CDM Miliseconds", distance);
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        //console.log("CDM SECONDS", seconds);
+        this.setState({
+          expiration: res.timer.expiration,
+          seconds,
+          minutes,
+          hours,
+          days
+        });
+      });
+    });
   };
 
   componentDidMount() {
-    this.pokeTimerCall();
-    //this.setState({ enableNewPokemon: false });
+    console.log("CDM CALL");
+    this.initializeExpirationTime().then(this.pokeTimerCall());
   }
 
   get3D = num => {
@@ -35,6 +75,7 @@ export class App extends Component {
   };
 
   pokeTimerCall = () => {
+    //console.log("POKETIMER CALL");
     fetch(TIMER_URL).then(res => {
       res.json().then(res => {
         expiration = res.timer.expiration;
@@ -43,10 +84,19 @@ export class App extends Component {
         let doEachInterval = () => {
           let now = new Date().getTime();
           let distance = countdown - now;
-          this.setState({ timer: distance });
+          console.log("miliseconds in timer", distance);
+          this.setState({
+            timer: distance,
+            days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+            hours: Math.floor(
+              (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            ),
+            minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+            seconds: Math.floor((distance % (1000 * 60)) / 1000)
+          });
           if (distance < 0) {
-            this.setState({ timer: 0, enableNewPokemon: true });
             clearInterval(timer);
+            this.enableNewPokemon().then(this.initializeExpirationTime());
           }
         };
         let timer = setInterval(doEachInterval, SECOND);
@@ -58,7 +108,7 @@ export class App extends Component {
     if (this.state.enableNewPokemon) {
       fetch(NEW_POKEMON_URL).then(res => {
         res.json().then(res => {
-          console.log("ima li te", res.pokemon.expiration);
+          // console.log("ima li te", res.pokemon.expiration);
           this.setState({
             pokemon: res.pokemon.Pokemon,
             pokemonName: res.pokemon.Pokemon.pokemonName,
@@ -76,13 +126,10 @@ export class App extends Component {
   };
 
   render() {
-    console.log("odbrojavanje", this.state.timer);
-    let { pokemonType, timer } = this.state;
-    let days = Math.floor(timer / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((timer % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((timer % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((timer % (1000 * 60)) / 1000);
-    console.log("enable: ", this.state.enableNewPokemon);
+    //console.log("odbrojavanje", this.state.timer);
+    let { pokemonType, timer, days, hours, minutes, seconds } = this.state;
+    //console.log("enable: ", this.state.enableNewPokemon);
+    //console.log("seconds in render: ", seconds);
 
     if (pokemonType.length > 1) {
       pokemonType = pokemonType.join("  ");
