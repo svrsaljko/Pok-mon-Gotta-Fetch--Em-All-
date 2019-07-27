@@ -9,40 +9,22 @@ import {
   days
 } from "../components/timer/CalculateTime";
 import { NEW_POKEMON_URL, TIMER_URL, SECOND } from "../components/Helper";
+import {
+  setTimerState,
+  enableNewPokemon,
+  setPokemonState
+} from "../actions/actions";
+import { connect } from "react-redux";
 
 export class PokemonAndCoins extends Component {
-  state = {
-    pokemonName: "\n",
-    pokemonId: "#???",
-    pokemonType: "\n",
-    pokemonDescription: "\n",
-    enableNewPokemon: false,
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  };
-
   enableNewPokemon = () => {
     return new Promise(resolve => {
-      resolve(
-        this.setState({
-          enableNewPokemon: true,
-          pokemonName: "\n",
-          pokemonType: "\n",
-          pokemonDescription: "\n"
-        })
-      );
+      resolve(this.props.enableNewPokemon());
     });
   };
 
   setTimerState = distance => {
-    this.setState({
-      days: days(distance),
-      hours: hours(distance),
-      minutes: minutes(distance),
-      seconds: seconds(distance)
-    });
+    this.props.setTimerState(distance);
   };
 
   initializeExpirationTime = () => {
@@ -78,21 +60,14 @@ export class PokemonAndCoins extends Component {
     });
   };
 
-  setPokemonState = Pokemon => {
-    this.setState({
-      pokemonName: Pokemon.pokemonName,
-      pokemonId: Pokemon.pokemonId,
-      pokemonType:
-        Pokemon.pokemonType.length > 1
-          ? Pokemon.pokemonType.join("  ")
-          : Pokemon.pokemonType,
-      pokemonDescription: Pokemon.description,
-      enableNewPokemon: false
-    });
+  setPokemonState = pokemon => {
+    console.log("upa sam u sistem");
+    this.props.setPokemonState(pokemon);
   };
 
   newPokemonOnClick = () => {
-    let { enableNewPokemon } = this.state;
+    console.log("new pokemon clicked");
+    let { enableNewPokemon } = this.props.state;
 
     if (enableNewPokemon) {
       fetch(NEW_POKEMON_URL).then(res => {
@@ -105,6 +80,7 @@ export class PokemonAndCoins extends Component {
   };
 
   componentDidMount() {
+    console.log("propsi", this.props.state.enableNewPokemon);
     this.initializeExpirationTime().then(this.pokeTimerCall());
   }
 
@@ -119,18 +95,19 @@ export class PokemonAndCoins extends Component {
       hours,
       minutes,
       seconds
-    } = this.state;
+    } = this.props.state;
+    console.log("pokemonId", pokemonId);
 
     return (
       <div className="PokemonContainer">
         <PokemonTrainer />
         <Pokemon
-          enableNewPokemon={enableNewPokemon}
+          pokemonId={pokemonId}
           pokemonName={pokemonName}
-          newPokemonOnClick={this.newPokemonOnClick}
           pokemonType={pokemonType}
           pokemonDescription={pokemonDescription}
-          pokemonId={pokemonId}
+          enableNewPokemon={enableNewPokemon}
+          newPokemonOnClick={this.newPokemonOnClick}
         />
         <PokemonTimer
           className="TimerContainer"
@@ -145,4 +122,21 @@ export class PokemonAndCoins extends Component {
   }
 }
 
-export default PokemonAndCoins;
+const mapStateToProps = state => {
+  return {
+    state
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setTimerState: distance => dispatch(setTimerState(distance)),
+    enableNewPokemon: () => dispatch(enableNewPokemon()),
+    setPokemonState: pokemon => dispatch(setPokemonState(pokemon))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PokemonAndCoins);

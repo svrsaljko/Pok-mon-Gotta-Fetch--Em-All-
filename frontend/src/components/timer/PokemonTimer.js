@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function PokemonTimer(props) {
-  console.log(props);
   return (
     <div className="TimerContainer">
       Time to new pokemon:

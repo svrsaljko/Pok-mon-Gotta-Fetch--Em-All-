@@ -19,15 +19,15 @@ export default function Pokemon({
       onClick={newPokemonOnClick}
     >
       <PokemonImage
-        enableNewPokemon={enableNewPokemon}
         pokemonName={pokemonName}
+        enableNewPokemon={enableNewPokemon}
       />
       <PokemonData
-        pokemonType={pokemonType}
+        pokemonId={pokemonId}
         pokemonName={pokemonName}
+        pokemonType={pokemonType}
         pokemonDescription={pokemonDescription}
         enableNewPokemon={enableNewPokemon}
-        pokemonId={pokemonId}
       />
     </div>
   );

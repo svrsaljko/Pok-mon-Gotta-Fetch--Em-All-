@@ -10,7 +10,7 @@ export default function PokemonData({
 }) {
   let data = (
     <div>
-      <PokemonId enableNewPokemon={enableNewPokemon} pokemonId={pokemonId} />
+      <PokemonId pokemonId={pokemonId} enableNewPokemon={enableNewPokemon} />
       <div>{pokemonName}</div>
       <div> {pokemonType} </div>
       <div className="PokemonDescription">
