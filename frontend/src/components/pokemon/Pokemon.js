@@ -1,6 +1,6 @@
 import React from "react";
 import PokemonImage from "./PokemonImage";
-import PokemonData from "../components/PokemonData";
+import PokemonData from "./PokemonData";
 
 export default function Pokemon({
   pokemonId,

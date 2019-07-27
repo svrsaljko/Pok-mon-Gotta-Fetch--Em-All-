@@ -1,5 +1,5 @@
 import React from "react";
-import PokemonId from "../components/PokemonId";
+import PokemonId from "./PokemonId";
 
 export default function PokemonData({
   pokemonId,

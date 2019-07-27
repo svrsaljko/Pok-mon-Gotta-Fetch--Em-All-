@@ -16,7 +16,7 @@ import {
   Weedle,
   Kakuna,
   Beedrill
-} from "../pokemonImages/index";
+} from "../../pokemonImages/index.js";
 
 const pokemon = [
   Pokeball,

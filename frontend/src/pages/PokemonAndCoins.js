@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import PokemonImage from "../components/PokemonImage";
 import PokemonTimer from "../components/timer/PokemonTimer";
 import PokemonTrainer from "../components/PokemonTrainer";
-import Pokemon from "../components/Pokemon";
+import Pokemon from "../components/pokemon/Pokemon";
 import {
   seconds,
   minutes,
