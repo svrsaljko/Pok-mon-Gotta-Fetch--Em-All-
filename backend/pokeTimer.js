@@ -5,7 +5,8 @@ const SECONDS = 60;
 const MINUTES = 60;
 const HOURS = 24;
 //const TIME = 2 * UNIT * SECONDS * MINUTES * HOURS;
-const TIME = (SECONDS * UNIT) / 12;
+//const TIME = (SECONDS * UNIT) / 12;
+const TIME = 1000;
 
 class PokeTimer {
   constructor() {

@@ -50,6 +50,7 @@ export default class PokemonImage extends React.Component {
 
   render() {
     let index = 0;
+    console.log("CALL");
     if (!this.props.enableNewPokemon) {
       index = this.returnChosenPokemon();
     }
@@ -62,7 +63,6 @@ export default class PokemonImage extends React.Component {
           opacity:
             index === 0 ? (this.props.enableNewPokemon ? "1" : "0.3") : "1"
         }}
-        //src={Caterpie}
         alt="Pokemon picture"
       />
     );

@@ -1,8 +1,3 @@
-.SiteContainer {
-  display: flex;
-  flex-direction: column;
-}
-
 .Header {
   background-color: #171a19;
   text-align: center;
