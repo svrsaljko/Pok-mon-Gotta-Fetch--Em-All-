@@ -9,30 +9,31 @@ const initState = {
 };
 
 const pokemonReducer = (state = initState, action) => {
-  if (action.type === ENABLE_NEW_POKEMON) {
-    return {
-      ...state,
-      enableNewPokemon: true,
-      pokemonName: "\n",
-      pokemonType: "\n",
-      pokemonDescription: "\n"
-    };
+  switch (action.type) {
+    case ENABLE_NEW_POKEMON:
+      return {
+        ...state,
+        enableNewPokemon: true,
+        pokemonName: "\n",
+        pokemonType: "\n",
+        pokemonDescription: "\n"
+      };
+    case SET_POKEMON_STATE:
+      let { pokemon } = action;
+      return {
+        ...state,
+        pokemonName: pokemon.pokemonName,
+        pokemonId: pokemon.pokemonId,
+        pokemonType:
+          pokemon.pokemonType.length > 1
+            ? pokemon.pokemonType.join("  ")
+            : pokemon.pokemonType,
+        pokemonDescription: pokemon.description,
+        enableNewPokemon: false
+      };
+    default:
+      return state;
   }
-  if (action.type === SET_POKEMON_STATE) {
-    let { pokemon } = action;
-    return {
-      ...state,
-      pokemonName: pokemon.pokemonName,
-      pokemonId: pokemon.pokemonId,
-      pokemonType:
-        pokemon.pokemonType.length > 1
-          ? pokemon.pokemonType.join("  ")
-          : pokemon.pokemonType,
-      pokemonDescription: pokemon.description,
-      enableNewPokemon: false
-    };
-  }
-  return state;
 };
 
 export default pokemonReducer;
