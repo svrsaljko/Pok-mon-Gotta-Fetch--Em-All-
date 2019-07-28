@@ -17,6 +17,7 @@ import {
   Kakuna,
   Beedrill
 } from "../../pokemonImages/index.js";
+import { connect } from "react-redux";
 
 const pokemon = [
   Pokeball,
@@ -37,11 +38,13 @@ const pokemon = [
   Beedrill
 ];
 
-export default class PokemonImage extends React.Component {
+class PokemonImage extends React.Component {
   returnChosenPokemon = () => {
+    let { pokemonName } = this.props;
+
     let index = 0;
     for (let i = 0; i < pokemon.length; i++) {
-      if (pokemon[i].includes(this.props.pokemonName)) {
+      if (pokemon[i].includes(pokemonName)) {
         return i;
       }
     }
@@ -49,8 +52,9 @@ export default class PokemonImage extends React.Component {
   };
 
   render() {
+    let { enableNewPokemon } = this.props;
     let index = 0;
-    if (!this.props.enableNewPokemon) {
+    if (!enableNewPokemon) {
       index = this.returnChosenPokemon();
     }
 
@@ -59,11 +63,21 @@ export default class PokemonImage extends React.Component {
         className="PokemonImage"
         src={pokemon[index]}
         style={{
-          opacity:
-            index === 0 ? (this.props.enableNewPokemon ? "1" : "0.3") : "1"
+          opacity: index === 0 ? (enableNewPokemon ? "1" : "0.3") : "1"
         }}
         alt="Pokemon picture"
       />
     );
   }
 }
+
+const mapStateToProps = state => {
+  let { enableNewPokemon } = state.pokemonReducer;
+  let { pokemonName } = state.pokemonReducer;
+  return {
+    pokemonName,
+    enableNewPokemon
+  };
+};
+
+export default connect(mapStateToProps)(PokemonImage);

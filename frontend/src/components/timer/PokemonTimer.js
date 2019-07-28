@@ -1,23 +1,30 @@
 import React from "react";
+import { connect } from "react-redux";
 
-export default function PokemonTimer(props) {
+function PokemonTimer({ state, enableNewPokemon }) {
+  let { days, hours, minutes, seconds } = state;
+
   return (
     <div className="TimerContainer">
       Time to new pokemon:
-      {props.enableNewPokemon ? (
+      {enableNewPokemon ? (
         <div>Catch new pokemon!!</div>
       ) : (
         <div>
-          {props.days +
-            "d " +
-            props.hours +
-            "h " +
-            props.minutes +
-            "m " +
-            props.seconds +
-            "s "}
+          {days + "d " + hours + "h " + minutes + "m " + seconds + "s "}
         </div>
       )}
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  let { enableNewPokemon } = state.pokemonReducer;
+  state = state.timerReducer;
+  return {
+    state,
+    enableNewPokemon
+  };
+};
+
+export default connect(mapStateToProps)(PokemonTimer);

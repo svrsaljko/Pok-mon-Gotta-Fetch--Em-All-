@@ -1,39 +1,14 @@
-import {
-  seconds,
-  minutes,
-  hours,
-  days
-} from "../components/timer/CalculateTime.js";
-
-import {
-  SET_TIMER_STATE,
-  ENABLE_NEW_POKEMON,
-  SET_POKEMON_STATE
-} from "../actions/types.js";
+import { ENABLE_NEW_POKEMON, SET_POKEMON_STATE } from "../actions/types.js";
 
 const initState = {
   pokemonName: "\n",
   pokemonId: "#???",
   pokemonType: "\n",
   pokemonDescription: "\n",
-  enableNewPokemon: false,
-  days: 0,
-  hours: 0,
-  minutes: 0,
-  seconds: 0
+  enableNewPokemon: false
 };
 
-const reducer = (state = initState, action) => {
-  if (action.type === SET_TIMER_STATE) {
-    let { distance } = action;
-    return {
-      ...state,
-      days: days(distance),
-      hours: hours(distance),
-      minutes: minutes(distance),
-      seconds: seconds(distance)
-    };
-  }
+const pokemonReducer = (state = initState, action) => {
   if (action.type === ENABLE_NEW_POKEMON) {
     return {
       ...state,
@@ -45,7 +20,6 @@ const reducer = (state = initState, action) => {
   }
   if (action.type === SET_POKEMON_STATE) {
     let { pokemon } = action;
-    console.log("pokemon", pokemon);
     return {
       ...state,
       pokemonName: pokemon.pokemonName,
@@ -61,4 +35,4 @@ const reducer = (state = initState, action) => {
   return state;
 };
 
-export default reducer;
+export default pokemonReducer;

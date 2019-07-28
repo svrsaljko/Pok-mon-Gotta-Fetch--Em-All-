@@ -1,15 +1,11 @@
 import React from "react";
 import PokemonImage from "./PokemonImage";
 import PokemonData from "./PokemonData";
+import { connect } from "react-redux";
 
-export default function Pokemon({
-  pokemonId,
-  pokemonName,
-  pokemonType,
-  pokemonDescription,
-  enableNewPokemon,
-  newPokemonOnClick
-}) {
+function Pokemon(props) {
+  let { enableNewPokemon } = props.state;
+  let { newPokemonOnClick } = props;
   return (
     <div
       style={{
@@ -18,17 +14,17 @@ export default function Pokemon({
       className="PokemonData"
       onClick={newPokemonOnClick}
     >
-      <PokemonImage
-        pokemonName={pokemonName}
-        enableNewPokemon={enableNewPokemon}
-      />
-      <PokemonData
-        pokemonId={pokemonId}
-        pokemonName={pokemonName}
-        pokemonType={pokemonType}
-        pokemonDescription={pokemonDescription}
-        enableNewPokemon={enableNewPokemon}
-      />
+      <PokemonImage />
+      <PokemonData />
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  state = state.pokemonReducer;
+  return {
+    state
+  };
+};
+
+export default connect(mapStateToProps)(Pokemon);

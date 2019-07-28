@@ -1,7 +1,8 @@
 import React from "react";
 import { get3D } from "../../components/Helper";
+import { connect } from "react-redux";
 
-export default function PokemonId({ pokemonId, enableNewPokemon }) {
+function PokemonId({ pokemonId, enableNewPokemon }) {
   return enableNewPokemon ? (
     <div>#???</div>
   ) : (
@@ -14,3 +15,15 @@ export default function PokemonId({ pokemonId, enableNewPokemon }) {
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  let pokemonId = state.pokemonReducer.pokemonId;
+  let enableNewPokemon = state.pokemonReducer.enableNewPokemon;
+
+  return {
+    pokemonId,
+    enableNewPokemon
+  };
+};
+
+export default connect(mapStateToProps)(PokemonId);
