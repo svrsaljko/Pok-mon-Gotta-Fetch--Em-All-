@@ -1,3 +1,9 @@
+.LoginPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .Header {
   background-color: #171a19;
   text-align: center;
@@ -38,4 +44,26 @@
   flex-direction: column;
   justify-content: center;
   margin-top: 6rem;
+}
+
+.UserButton {
+  background-color: #171a19;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.CollectCoinsButton {
+  background-color: #171a19;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.UserButton:hover {
+  color: #00d8ff;
+}
+
+.CollectCoinsButton:hover {
+  color: #00d8ff;
 }
