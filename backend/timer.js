@@ -9,13 +9,13 @@ const HOURS = 24;
 const TIME = 3000;
 
 class PokeTimer {
-  constructor() {
+  constructor(TIME) {
     //this.pokemon = null;
-    this.expiration = this.calculateExpiration();
+    this.expiration = this.calculateExpiration(TIME);
     this.SECOND = UNIT;
   }
 
-  calculateExpiration() {
+  calculateExpiration(TIME) {
     return new Date(Date.now() + TIME + 500);
   }
 }

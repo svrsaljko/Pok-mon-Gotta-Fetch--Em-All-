@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 
 const Pokemon = require("./Pokemon.js");
-const PokeTimer = require("./pokeTimer.js");
+const Timer = require("./timer.js");
+const User = require("./user.js");
 
 const PORT = 8000;
 const app = express();
@@ -18,7 +19,19 @@ const app = express();
 app.use(cors({ origin: "http://localhost:1234" }));
 
 app.get("/pokemon/timer", (req, res) => {
-  const timer = new PokeTimer();
+  const timer = new Timer(1000);
+
+  res.json({ timer });
+});
+
+app.get("/user", (req, res) => {
+  const user = new User();
+
+  res.json({ user });
+});
+
+app.get("/coinsTimer", (req, res) => {
+  const timer = new Timer(4000);
 
   res.json({ timer });
 });

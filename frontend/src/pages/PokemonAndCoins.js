@@ -80,7 +80,7 @@ export class PokemonAndCoins extends Component {
       <div className="PokemonContainer">
         <PokemonTrainer />
         <Pokemon newPokemonOnClick={this.newPokemonOnClick} />
-        <PokemonTimer className="TimerContainer" />
+        <PokemonTimer />
       </div>
     );
   }
