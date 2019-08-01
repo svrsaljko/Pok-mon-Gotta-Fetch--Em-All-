@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const LOGIN_URL = "http://localhost:8000/login";
+const REGISTER_URL = "http://localhost:8000/register";
 
-export default class Login extends React.Component {
+export default class Register extends React.Component {
   state = {
     username: "",
     password: ""
@@ -13,7 +13,7 @@ export default class Login extends React.Component {
     console.log("form submmited");
     let username = this.state.username;
     let password = this.state.password;
-    fetch(LOGIN_URL, {
+    fetch(REGISTER_URL, {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: {
@@ -51,9 +51,9 @@ export default class Login extends React.Component {
           />
         </form>
         <button onClick={this.onUsernameSubmmit} className="RegisterButton">
-          LOG IN
+          REGISTER
         </button>
-        <Link to="/register">Already have an account!?</Link>
+        <Link to="/login">Don't have an account yet!?</Link>
       </div>
     );
   }
