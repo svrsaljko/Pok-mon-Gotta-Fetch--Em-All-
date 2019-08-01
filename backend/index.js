@@ -8,14 +8,6 @@ const User = require("./user.js");
 const PORT = 8000;
 const app = express();
 
-// const ti = new PokeTimer();
-// console.log("a", ti);
-
-// const poke1 = new Pokemon();
-
-// console.log("poke1", poke1.Pokemon.pokemonName);
-// console.log("poke1 full", poke1);
-
 app.use(cors({ origin: "http://localhost:1234" }));
 
 app.get("/pokemon/timer", (req, res) => {
