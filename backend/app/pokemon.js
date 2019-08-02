@@ -1,5 +1,4 @@
-const pokemonList = require("./pokemon.json");
-const Timer = require("./timer");
+const pokemonList = require("../data/pokemon.json");
 const Pokedex = pokemonList.PokemonList;
 
 const randomPokemon = {
@@ -16,12 +15,6 @@ class Pokemon {
   constructor() {
     this.Pokemon = randomPokemon.pokemon;
     this.birthdate = randomPokemon.birthdate;
-    this.expiration = this.returnExpiration();
-  }
-
-  returnExpiration() {
-    const timer = new Timer(3000);
-    return Timer.expiration;
   }
 }
 
