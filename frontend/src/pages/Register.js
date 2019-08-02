@@ -5,14 +5,16 @@ const REGISTER_URL = "http://localhost:8000/register";
 export default class Register extends React.Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    message: ""
   };
 
   onUsernameSubmmit = e => {
     e.preventDefault();
     console.log("form submmited");
-    let username = this.state.username;
-    let password = this.state.password;
+    let username = this.state.username.trim();
+    let password = this.state.password.trim();
+
     fetch(REGISTER_URL, {
       method: "POST",
       body: JSON.stringify({ username, password }),
@@ -20,7 +22,14 @@ export default class Register extends React.Component {
         "Content-Type": "application/json"
       }
     })
-      .then(res => console.log(res))
+      .then(res => res.json())
+      .then(res => {
+        if (!res.success) {
+          this.setState({ message: "Username already exist!" });
+        } else {
+          this.setState({ message: "Account created successfully!" });
+        }
+      })
       .catch(error => console.error("Error:", error));
   };
 
@@ -36,6 +45,9 @@ export default class Register extends React.Component {
   render() {
     return (
       <div className="LoginPage">
+        <p style={{ minHeight: "20px", fontSize: "1rem" }}>
+          {this.state.message}
+        </p>
         <form action="" onSubmit={this.onUsernameSubmmit}>
           <p>Username:</p>
           <input

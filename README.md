@@ -1,3 +1,3 @@
 # Pokemon-gotta-catch-em-all
 
-React,Redux,NodeJS project
+React,Redux,NodeJS,MySQL project

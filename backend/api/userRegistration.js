@@ -6,18 +6,15 @@ const router = new Router();
 router.post("/register", (req, res) => {
   const { username, password } = req.body;
   Registration.usernameExist(username)
-    .then(res => {
-      console.log("POST /register res", res);
-      console.log("length: ", res.length);
-      if (res.length == 0) {
-        console.log("let's create new user");
+    .then(resp => {
+      if (resp.length === 0) {
         Registration.register(username, password)
-          .then(res => {
-            console.log("resgistration complete response: ", res);
+          .then(resp => {
+            res.json({ success: true });
           })
           .catch(error => console.error(error));
       } else {
-        console.log("User already exist");
+        res.json({ success: false });
       }
     })
     .catch(error => console.error(error));

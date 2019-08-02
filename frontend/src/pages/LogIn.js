@@ -10,9 +10,9 @@ export default class Login extends React.Component {
 
   onUsernameSubmmit = e => {
     e.preventDefault();
-    console.log("form submmited");
     let username = this.state.username;
     let password = this.state.password;
+    //console.log("form submmited");
     fetch(LOGIN_URL, {
       method: "POST",
       body: JSON.stringify({ username, password }),
