@@ -1,7 +1,9 @@
 const express = require("express");
 //DELETE THIS module
 //const cors = require("cors");
+//const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
+const mysql = require("mysql");
 const app = express();
 
 const Pokemon = require("./Pokemon.js");
@@ -9,8 +11,19 @@ const Timer = require("./timer.js");
 
 const PORT = 8000;
 const ORIGIN_URL = "http://localhost:1234";
+let response = { status: "", message: "" };
 
-//app.use(cors({ origin: ORIGIN_URL }));
+const con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "root",
+  database: "pokemondb"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", ORIGIN_URL);
@@ -33,11 +46,7 @@ let users = [
   }
 ];
 
-const addUser = function(username, password) {
-  //console.log("username", username);
-  users.push({ username, password });
-  //  console.log("korisici: ", users);
-};
+const addUser = function(username, password) {};
 const userExist = function(username, password) {
   console.log("userExist chechking => username: ", username);
   console.log("users.length: ", users.length);
@@ -68,10 +77,34 @@ app.post("/login", (req, res) => {
   let status = userExist(username);
   res.json({ userExist: status });
 });
+
 app.post("/register", (req, res) => {
   //console.log("POST");
   const { username, password } = req.body;
-  addUser(username, password);
+  //addUser(username, password);
+  let mysqlquery =
+    "INSERT INTO `user` (username,password) VALUES (" +
+    mysql.escape(username) +
+    ", " +
+    mysql.escape(password) +
+    ")";
+  //console.log("query: " + mysqlquery);
+  con.query(mysqlquery, function(err, result) {
+    if (err) {
+      response.status = "error";
+      response.message = err.message;
+    } else {
+      response.status = "ok";
+      response.message = "User successfully registered";
+      console.log("User successfully registered");
+    }
+    console.log("Response: " + response);
+    res.send(response);
+  });
+
+  //console.log("username", username);
+  //users.push({ username, password });
+  //  console.log("korisici: ", users);
 });
 
 app.get("/pokemon/timer", (req, res) => {
@@ -94,53 +127,3 @@ app.get("/pokemon/new", (req, res) => {
 app.listen(PORT, () => {
   console.log("listening on port: ", PORT);
 });
-
-// const express = require("express");
-// const cors = require("cors");
-// const Pokemon = require("./Pokemon.js");
-// const Timer = require("./timer.js");
-// const PORT = 8000;
-// const app = express();
-// const ORIGIN_URL = "http://localhost:1234/";
-
-// app.use(
-//   cors({
-//     ORIGIN_URL
-//     // credentials: true,
-//     // methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//     // preflightContinue: false,
-//     // optionsSuccessStatus: 204
-//   })
-// );
-
-// // app.use((req, res, next) => {
-// //   res.setHeader("Access-Control-Allow-Origin", "http://localhost:1234");
-// //   res.setHeader("Access-Control-Allow-Headers", "Content-type,Authorization");
-// //   res.setHeader(
-// //     "Access-Control-Allow-Methods",
-// //     "POST, PUT, GET, OPTIONS, DELETE"
-// //   );
-
-// //   next();
-// // });
-
-// app.get("/pokemon/timer", (req, res) => {
-//   const timer = new Timer(1000);
-
-//   res.json({ timer });
-// });
-
-// app.get("/coinsTimer", (req, res) => {
-//   const timer = new Timer(4000);
-
-//   res.json({ timer });
-// });
-
-// app.get("/pokemon/new", (req, res) => {
-//   const pokemon = new Pokemon();
-//   res.json({ pokemon });
-// });
-
-// app.listen(PORT, () => {
-//   console.log("listening on port: ", PORT);
-// });
