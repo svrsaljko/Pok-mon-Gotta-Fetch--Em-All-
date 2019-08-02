@@ -1,3 +1,11 @@
+.LinkLogInRegister:hover {
+  color: #00d8ff;
+}
+
+.LinkLogInRegister {
+  color: pink;
+}
+
 .LoginPage {
   display: flex;
   flex-direction: column;

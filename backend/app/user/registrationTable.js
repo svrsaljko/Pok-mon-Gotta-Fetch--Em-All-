@@ -17,11 +17,29 @@ class Registration {
     });
   }
 
-  static register(username, password) {
+  static mailExist(mail) {
     return new Promise((resolve, reject) => {
       connection.query(
-        "INSERT INTO `user` (username,password) VALUES (" +
+        "SELECT mail FROM `user` WHERE mail=(?);",
+        mail,
+        function(err, res) {
+          if (err) {
+            reject(err);
+          } else {
+          }
+          resolve(res);
+        }
+      );
+    });
+  }
+
+  static register(username, mail, password) {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        "INSERT INTO `user` (username,mail,password) VALUES (" +
           connection.escape(username) +
+          ", " +
+          connection.escape(mail) +
           ", " +
           connection.escape(password) +
           ")",

@@ -36,6 +36,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <div className="LoginPage">
+        <p style={{ minHeight: "20px" }}>{"\n"}</p>
         <form action="" onSubmit={this.onUsernameSubmmit}>
           <p>Username:</p>
           <input
@@ -53,7 +54,9 @@ export default class Login extends React.Component {
         <button onClick={this.onUsernameSubmmit} className="RegisterButton">
           LOG IN
         </button>
-        <Link to="/register">Already have an account!?</Link>
+        <Link className="LinkLogInRegister" to="/register">
+          Don't have an account yet!?
+        </Link>
       </div>
     );
   }
