@@ -20,7 +20,7 @@ export default class Register extends React.Component {
     let password = this.state.password.trim();
 
     if (!this.usernameLengthChecker()) {
-      this.setState({ message: "Username too short" });
+      this.setState({ message: "Username too short !" });
     } else if (!EmailValidator.validate(email)) {
       this.setState({
         message: "Please enter a valid email address according to format !"
