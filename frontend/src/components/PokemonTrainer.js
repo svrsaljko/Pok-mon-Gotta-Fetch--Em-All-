@@ -1,22 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-//const USER_URL = "http://localhost:8000/user";
-
-// let fetchUser = () => {
-//   console.log("aaa");
-//   fetch(USER_URL, (req, res) => {
-//     res.then(res.json()).then(res => console.log("res: ", res));
-//   });
-// };
-
-function PokemonTrainer() {
+function PokemonTrainer(props) {
+  let username = localStorage.getItem("username", username);
   return (
     <div className="UserContainer">
       <div>
         Welcome
         <Link to="/useraa">
-          <button className="UserButton">USER</button>
+          <button className="UserButton">{username}</button>
         </Link>
       </div>
       <div>COINS: 100</div>

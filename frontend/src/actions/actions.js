@@ -1,7 +1,8 @@
 import {
   SET_TIMER_STATE,
   ENABLE_NEW_POKEMON,
-  SET_POKEMON_STATE
+  SET_POKEMON_STATE,
+  SET_USER
 } from "../actions/types";
 
 export const setTimerState = distance => {

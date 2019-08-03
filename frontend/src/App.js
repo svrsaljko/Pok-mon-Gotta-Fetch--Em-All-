@@ -9,14 +9,18 @@ import { PrivateRoute, PublicRoute } from "./components/Routes";
 import { Switch, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 
-export class App extends Component {
+class App extends Component {
   render() {
     return (
       <div>
         <Header />
         <Router>
           <Switch>
-            <PrivateRoute exact path="/" component={PokemonAndCoins} />
+            <PrivateRoute
+              exact
+              path="/user/:username"
+              component={PokemonAndCoins}
+            />
             <PrivateRoute exact path="/useraa" component={UserProfile} />
             <PublicRoute
               restricted={true}
@@ -24,13 +28,8 @@ export class App extends Component {
               path="/register"
               component={Register}
             />
-            <PublicRoute
-              restricted={true}
-              exact
-              path="/login"
-              component={LogIn}
-            />
-            <PublicRoute component={ErrorComponent} path="*" />
+            <PublicRoute restricted={true} exact path="/" component={LogIn} />
+            <PublicRoute component={ErrorComponent} path="/404" />
           </Switch>
         </Router>
       </div>

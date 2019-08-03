@@ -1,13 +1,15 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { isLoggedIn, getUsername } from "../components/AuthService";
 
 export const PublicRoute = ({ component: Component, restricted, ...rest }) => {
+  //console.log("all params", rest.path);
   return (
     <Route
       {...rest}
       render={props =>
-        localStorage.length > 0 && restricted ? (
-          <Redirect to="/" />
+        isLoggedIn() && restricted ? (
+          <Redirect to={`/user/${getUsername()}`} />
         ) : (
           <Component {...props} />
         )
@@ -21,11 +23,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        localStorage.length > 0 ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/login" />
-        )
+        isLoggedIn() ? <Component {...props} /> : <Redirect to="/" />
       }
     />
   );

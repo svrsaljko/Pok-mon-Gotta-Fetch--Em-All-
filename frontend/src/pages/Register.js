@@ -139,7 +139,7 @@ export default class Register extends React.Component {
         <button onClick={this.onUsernameSubmmit} className="RegisterButton">
           REGISTER
         </button>
-        <Link className="LinkLogInRegister" to="/login">
+        <Link className="LinkLogInRegister" to="/">
           Already have an account!?
         </Link>
       </div>

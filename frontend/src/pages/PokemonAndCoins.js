@@ -8,6 +8,12 @@ import {
   enableNewPokemon,
   setPokemonState
 } from "../actions/actions";
+import {
+  isUserAuthenticated,
+  logout,
+  redirectToError,
+  getUsername
+} from "../components/AuthService";
 import { connect } from "react-redux";
 
 export class PokemonAndCoins extends Component {
@@ -59,34 +65,50 @@ export class PokemonAndCoins extends Component {
   };
 
   newPokemonOnClick = () => {
-    let { enableNewPokemon } = this.props.state.pokemonReducer;
+    if (isUserAuthenticated()) {
+      let { enableNewPokemon } = this.props.state.pokemonReducer;
 
-    if (enableNewPokemon) {
-      fetch(NEW_POKEMON_URL).then(res => {
-        res.json().then(res => {
-          this.setPokemonState(res.pokemon.Pokemon);
-          this.pokeTimerCall();
+      if (enableNewPokemon) {
+        fetch(NEW_POKEMON_URL).then(res => {
+          res.json().then(res => {
+            this.setPokemonState(res.pokemon.Pokemon);
+            this.pokeTimerCall();
+          });
         });
-      });
+      }
+    } else {
+      alert("Unauthorized access");
     }
   };
 
   componentDidMount() {
+    this.onParamsChange();
     this.initializeExpirationTime().then(this.pokeTimerCall());
   }
 
-  deleteLocalStorage = () => {
-    localStorage.removeItem("token");
-    this.props.history.push("/login");
+  onParamsChange = () => {
+    let { username } = this.props.match.params;
+    let _username = getUsername();
+    if (username !== _username) {
+      redirectToError(this.props.history);
+    }
   };
 
   render() {
+    //console.log("params", this.props.match.params.username);
+    //redirectToError(this.props.history, this.props.match.params.username);
     return (
       <div className="PokemonContainer">
         <PokemonTrainer />
         <Pokemon newPokemonOnClick={this.newPokemonOnClick} />
         <PokemonTimer />
-        <button onClick={this.deleteLocalStorage}>LOGOUT</button>
+        <button
+          onClick={() => {
+            logout(this.props.history);
+          }}
+        >
+          LOGOUT
+        </button>
       </div>
     );
   }

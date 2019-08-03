@@ -1,42 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import EmailValidator from "email-validator";
 import sha256 from "sha256";
-import decode from "jwt-decode";
+import {
+  setTokenToLocalStorage,
+  getUsernameFromToken,
+  isUserAuthenticated
+} from "../components/AuthService";
 
 const LOGIN_URL = "http://localhost:8000/login";
 
-export default class Login extends React.Component {
+class LogIn extends React.Component {
   state = {
     usernameMail: "",
     password: "",
     message: ""
   };
 
-  // componentDidMount() {
-  //   if (localStorage.length > 0) {
-  //     this.props.history.push("/");
-  //   }
-  // }
-
-  setTokenToLocalStorage = token => {
-    // Saves user token to localStorage
-    localStorage.setItem("token", token);
-  };
-
-  redirectToUser = () => {
-    this.props.history.push("/");
-  };
-
   onUsernameSubmmit = e => {
     e.preventDefault();
     let usernameMail = this.state.usernameMail.trim();
-    let password = this.state.password.trim();
-    password = sha256(password);
-    let flag = this.usernameOrMailCheck(usernameMail);
+    let password = sha256(this.state.password.trim());
+
     fetch(LOGIN_URL, {
       method: "POST",
-      body: JSON.stringify({ usernameMail, password, flag }),
+      body: JSON.stringify({ usernameMail, password }),
       headers: {
         "Content-Type": "application/json"
       }
@@ -45,27 +32,14 @@ export default class Login extends React.Component {
       .then(res => {
         this.setState({ message: res.message });
         let { token } = res;
-        //console.log("dekodirani token:", decode(token));
-        let decodedToken = decode(token);
-        console.log("deko", decodedToken);
-        this.setTokenToLocalStorage(token);
-        if (localStorage.length > 0) {
-          this.props.history.push("/");
+        let username = getUsernameFromToken(token);
+        setTokenToLocalStorage(token, username);
+        console.log("koji je return:", isUserAuthenticated());
+        if (isUserAuthenticated()) {
+          this.props.history.push(`/user/${username}`);
         }
-        console.log("token:", token);
-        console.log("token length:", token.length);
       })
       .catch(error => console.error("Error:", error));
-  };
-
-  usernameOrMailCheck = usernameMail => {
-    if (EmailValidator.validate(usernameMail)) {
-      console.log("it's email!");
-      return true;
-    } else {
-      console.log("username");
-      return false;
-    }
   };
 
   onUsernameMailInput = e => {
@@ -105,3 +79,5 @@ export default class Login extends React.Component {
     );
   }
 }
+
+export default LogIn;
