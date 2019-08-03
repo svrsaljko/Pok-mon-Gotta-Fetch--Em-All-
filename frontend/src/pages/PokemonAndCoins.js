@@ -75,12 +75,18 @@ export class PokemonAndCoins extends Component {
     this.initializeExpirationTime().then(this.pokeTimerCall());
   }
 
+  deleteLocalStorage = () => {
+    localStorage.removeItem("token");
+    this.props.history.push("/login");
+  };
+
   render() {
     return (
       <div className="PokemonContainer">
         <PokemonTrainer />
         <Pokemon newPokemonOnClick={this.newPokemonOnClick} />
         <PokemonTimer />
+        <button onClick={this.deleteLocalStorage}>LOGOUT</button>
       </div>
     );
   }

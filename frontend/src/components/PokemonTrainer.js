@@ -15,7 +15,7 @@ function PokemonTrainer() {
     <div className="UserContainer">
       <div>
         Welcome
-        <Link to="/user">
+        <Link to="/useraa">
           <button className="UserButton">USER</button>
         </Link>
       </div>

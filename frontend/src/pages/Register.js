@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import EmailValidator from "email-validator";
+import sha256 from "sha256";
 const REGISTER_URL = "http://localhost:8000/register";
 
 export default class Register extends React.Component {
@@ -18,7 +19,7 @@ export default class Register extends React.Component {
     let username = this.state.username.trim();
     let email = this.state.email.trim();
     let password = this.state.password.trim();
-
+    password = sha256(password);
     if (!this.usernameLengthChecker()) {
       this.setState({ message: "Username too short !" });
     } else if (!EmailValidator.validate(email)) {
