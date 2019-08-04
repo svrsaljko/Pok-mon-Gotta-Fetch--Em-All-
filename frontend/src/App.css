@@ -1,8 +1,23 @@
+.RegisterLoginButton {
+  color: palevioletred;
+  background-color: #171a19;
+  border: 1px solid palevioletred;
+  font-size: 1.5rem;
+  border-radius: 10px;
+}
+
+.RegisterLoginButton:hover {
+  color: #00d8ff;
+  background-color: #171a19;
+  border: 1px solid #00d8ff;
+}
+
 .LinkLogInRegister:hover {
   color: #00d8ff;
 }
 
 .LinkLogInRegister {
+  font-size: 0.9rem;
   color: palevioletred;
 }
 

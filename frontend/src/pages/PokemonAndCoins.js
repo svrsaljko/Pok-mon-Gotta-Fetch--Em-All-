@@ -81,11 +81,6 @@ export class PokemonAndCoins extends Component {
     }
   };
 
-  componentDidMount() {
-    this.onParamsChange();
-    this.initializeExpirationTime().then(this.pokeTimerCall());
-  }
-
   onParamsChange = () => {
     let { username } = this.props.match.params;
     let _username = getUsername();
@@ -93,6 +88,11 @@ export class PokemonAndCoins extends Component {
       redirectToError(this.props.history);
     }
   };
+
+  componentDidMount() {
+    this.onParamsChange();
+    this.initializeExpirationTime().then(this.pokeTimerCall());
+  }
 
   render() {
     //console.log("params", this.props.match.params.username);

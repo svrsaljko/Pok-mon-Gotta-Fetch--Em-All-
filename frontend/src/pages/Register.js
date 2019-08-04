@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import EmailValidator from "email-validator";
 import sha256 from "sha256";
-const REGISTER_URL = "http://localhost:8000/register";
+import { REGISTER_URL, getRegisterOptions } from "../components/Helper";
 
 export default class Register extends React.Component {
   state = {
@@ -36,13 +36,7 @@ export default class Register extends React.Component {
       this.passwordsChecker()
     ) {
       console.log("fetch!");
-      fetch(REGISTER_URL, {
-        method: "POST",
-        body: JSON.stringify({ username, email, password }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
+      fetch(REGISTER_URL, getRegisterOptions(username, email, password))
         .then(res => res.json())
         .then(res => {
           if (!res.success) {
@@ -136,7 +130,10 @@ export default class Register extends React.Component {
             disabled={this.state.disableRPField}
           />
         </form>
-        <button onClick={this.onUsernameSubmmit} className="RegisterButton">
+        <button
+          onClick={this.onUsernameSubmmit}
+          className="RegisterLoginButton"
+        >
           REGISTER
         </button>
         <Link className="LinkLogInRegister" to="/">

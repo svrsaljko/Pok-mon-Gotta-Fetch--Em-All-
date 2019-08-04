@@ -1,4 +1,26 @@
 import decode from "jwt-decode";
+import { LOGIN_URL, getLogInOptions } from "../components/Helper";
+
+export const logIn = (usernameMail, password, history) => {
+  return new Promise((resolve, reject) => {
+    fetch(LOGIN_URL, getLogInOptions(usernameMail, password))
+      .then(res => res.json())
+      .then(res => {
+        resolve(res.success);
+        let { token } = res;
+        logInWithToken(token, history);
+      })
+      .catch(error => reject(error));
+  });
+};
+
+export const logInWithToken = (token, history) => {
+  let username = getUsernameFromToken(token);
+  setTokenToLocalStorage(token, username);
+  if (isUserAuthenticated()) {
+    history.push(`/user/${username}`);
+  }
+};
 
 export const setTokenToLocalStorage = (token, username) => {
   localStorage.setItem("token", token);
@@ -25,8 +47,6 @@ export const isUserAuthenticated = () => {
   let token = localStorage.getItem("token", token);
   let username = localStorage.getItem("username", username);
   let _username = getUsernameFromToken(token);
-  console.log("username iz storage-a", username);
-  console.log("username iz token-a", _username);
   if (username === _username) {
     return true;
   } else {

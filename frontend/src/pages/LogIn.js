@@ -1,13 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import sha256 from "sha256";
-import {
-  setTokenToLocalStorage,
-  getUsernameFromToken,
-  isUserAuthenticated
-} from "../components/AuthService";
-
-const LOGIN_URL = "http://localhost:8000/login";
+import { Link } from "react-router-dom";
+import { logIn } from "../components/AuthService";
 
 class LogIn extends React.Component {
   state = {
@@ -20,26 +14,13 @@ class LogIn extends React.Component {
     e.preventDefault();
     let usernameMail = this.state.usernameMail.trim();
     let password = sha256(this.state.password.trim());
-
-    fetch(LOGIN_URL, {
-      method: "POST",
-      body: JSON.stringify({ usernameMail, password }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => res.json())
+    logIn(usernameMail, password, this.props.history)
       .then(res => {
-        this.setState({ message: res.message });
-        let { token } = res;
-        let username = getUsernameFromToken(token);
-        setTokenToLocalStorage(token, username);
-        console.log("koji je return:", isUserAuthenticated());
-        if (isUserAuthenticated()) {
-          this.props.history.push(`/user/${username}`);
+        if (!res) {
+          this.setState({ message: "Incorrect username/mail or password" });
         }
       })
-      .catch(error => console.error("Error:", error));
+      .catch(err => console.error(err));
   };
 
   onUsernameMailInput = e => {
@@ -69,7 +50,10 @@ class LogIn extends React.Component {
             type="text"
           />
         </form>
-        <button onClick={this.onUsernameSubmmit} className="RegisterButton">
+        <button
+          onClick={this.onUsernameSubmmit}
+          className="RegisterLoginButton"
+        >
           LOG IN
         </button>
         <Link className="LinkLogInRegister" to="/register">

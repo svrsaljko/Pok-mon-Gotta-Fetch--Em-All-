@@ -10,7 +10,9 @@ router.post("/login", (req, res) => {
   LogIn.login(usernameMail, password)
     .then(resp => {
       if (resp.length === 0) {
-        res.json({ message: "Auth failed" });
+        res.json({
+          success: false
+        });
       } else {
         let token = jwt.sign(
           {
@@ -19,7 +21,7 @@ router.post("/login", (req, res) => {
           privateKey
         );
 
-        res.json({ token, message: "Auth success" });
+        res.json({ token, success: true });
       }
     })
     .catch(err => console.error(err));
