@@ -40,7 +40,7 @@ class LogIn extends React.Component {
           <p>Username/Mail:</p>
           <input
             onChange={this.onUsernameMailInput}
-            placeholder="Username here..."
+            placeholder="Username or mail here..."
             type="text"
           />
           <p>Password:</p>

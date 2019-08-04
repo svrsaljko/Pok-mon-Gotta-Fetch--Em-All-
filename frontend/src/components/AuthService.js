@@ -1,5 +1,26 @@
 import decode from "jwt-decode";
 import { LOGIN_URL, getLogInOptions } from "../components/Helper";
+import { REGISTER_URL, getRegisterOptions } from "../components/Helper";
+
+export const register = (username, email, password) => {
+  return new Promise((resolve, reject) => {
+    fetch(REGISTER_URL, getRegisterOptions(username, email, password))
+      .then(res => res.json())
+      .then(res => {
+        if (!res.success) {
+          resolve(res.success);
+          console.log("Username or email already exist!");
+          //this.setState({ message: "Username or email already exist!" });
+        } else {
+          resolve(res.success);
+
+          //this.setState({ message: "Account created successfully!" });
+          console.log("Account created successfully!");
+        }
+      })
+      .catch(error => reject(error));
+  });
+};
 
 export const logIn = (usernameMail, password, history) => {
   return new Promise((resolve, reject) => {

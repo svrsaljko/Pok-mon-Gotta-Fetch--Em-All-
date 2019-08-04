@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import EmailValidator from "email-validator";
 import sha256 from "sha256";
-import { REGISTER_URL, getRegisterOptions } from "../components/Helper";
+import { register, logIn } from "../components/AuthService";
 
 export default class Register extends React.Component {
   state = {
@@ -35,17 +35,15 @@ export default class Register extends React.Component {
       EmailValidator.validate(email) &&
       this.passwordsChecker()
     ) {
-      console.log("fetch!");
-      fetch(REGISTER_URL, getRegisterOptions(username, email, password))
-        .then(res => res.json())
+      register(username, email, password)
         .then(res => {
-          if (!res.success) {
+          if (!res) {
             this.setState({ message: "Username or email already exist!" });
           } else {
-            this.setState({ message: "Account created successfully!" });
+            logIn(email, password, this.props.history);
           }
         })
-        .catch(error => console.error("Error:", error));
+        .catch(error => console.error(error));
     }
   };
 
@@ -67,8 +65,6 @@ export default class Register extends React.Component {
 
   onUsernameInput = e => {
     let username = e.target.value;
-    console.log("duljina username: ", username.length);
-
     this.setState({
       username,
       message: "Username need to have at least 5 characters, 20 is max !"
