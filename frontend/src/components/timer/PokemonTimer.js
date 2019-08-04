@@ -20,7 +20,7 @@ function PokemonTimer({ state, enableNewPokemon }) {
 
 const mapStateToProps = state => {
   let { enableNewPokemon } = state.pokemonReducer;
-  state = state.timerReducer;
+  state = state.pokemonTimerReducer;
   return {
     state,
     enableNewPokemon

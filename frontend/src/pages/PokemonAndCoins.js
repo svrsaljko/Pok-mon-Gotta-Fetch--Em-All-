@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PokemonTimer from "../components/timer/PokemonTimer";
-import PokemonTrainer from "../components/PokemonTrainer";
+import CollectPokeCoins from "../components/CollectPokeCoins";
 import Pokemon from "../components/pokemon/Pokemon";
 import { NEW_POKEMON_URL, TIMER_URL, SECOND } from "../components/Helper";
 import {
@@ -99,16 +99,20 @@ export class PokemonAndCoins extends Component {
     //redirectToError(this.props.history, this.props.match.params.username);
     return (
       <div className="PokemonContainer">
-        <PokemonTrainer />
+        <CollectPokeCoins />
+
+        {/* <div className="PokemonTrainerContainer">
+          <button
+            className="LogOutButton"
+            onClick={() => {
+              logout(this.props.history);
+            }}
+          >
+            LOGOUT
+          </button>
+        </div> */}
         <Pokemon newPokemonOnClick={this.newPokemonOnClick} />
         <PokemonTimer />
-        <button
-          onClick={() => {
-            logout(this.props.history);
-          }}
-        >
-          LOGOUT
-        </button>
       </div>
     );
   }

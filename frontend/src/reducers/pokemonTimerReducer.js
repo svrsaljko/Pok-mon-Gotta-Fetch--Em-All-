@@ -5,7 +5,7 @@ import {
   days
 } from "../components/timer/CalculateTime.js";
 
-import { SET_TIMER_STATE } from "../actions/types.js";
+import { SET_POKEMON_TIMER_STATE } from "../actions/types.js";
 
 const initState = {
   days: 0,
@@ -15,7 +15,7 @@ const initState = {
 };
 
 const timerReducer = (state = initState, action) => {
-  if (action.type === SET_TIMER_STATE) {
+  if (action.type === SET_POKEMON_TIMER_STATE) {
     let { distance } = action;
     return {
       ...state,

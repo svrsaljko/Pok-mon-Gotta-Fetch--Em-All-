@@ -8,7 +8,7 @@ app.use(userRegistrationRouter);
 app.use(userLogInRouter);
 
 app.get("/pokemon/timer", (req, res) => {
-  const timer = new Timer(1000);
+  const timer = new Timer(0);
 
   res.json({ timer });
 });

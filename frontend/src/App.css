@@ -1,4 +1,25 @@
-.RegisterLoginButton {
+.CollectCoinsButton {
+  margin-top: 3rem;
+  color: palevioletred;
+  background-color: #171a19;
+  border: 1px solid palevioletred;
+  font-size: 1.5rem;
+  border-radius: 10px;
+}
+.CollectCoinsButton:hover {
+  color: #00d8ff;
+  background-color: #171a19;
+  border: 1px solid #00d8ff;
+}
+
+.PokemonTrainerContainer {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid black;
+  margin-top: 6rem;
+  justify-content: space-between;
+}
+.RegisterLogInButton {
   color: palevioletred;
   background-color: #171a19;
   border: 1px solid palevioletred;
@@ -6,7 +27,20 @@
   border-radius: 10px;
 }
 
-.RegisterLoginButton:hover {
+.RegisterLogInButton:hover {
+  color: #00d8ff;
+  background-color: #171a19;
+  border: 1px solid #00d8ff;
+}
+.LogOutButton {
+  color: palevioletred;
+  background-color: #171a19;
+  border: 1px solid palevioletred;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+.LogOutButton:hover {
   color: #00d8ff;
   background-color: #171a19;
   border: 1px solid #00d8ff;

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
 import pokemonReducer from "./pokemonReducer";
-import timerReducer from "./timerReducer";
+import pokemonTimerReducer from "./pokemonTimerReducer";
 
-export default combineReducers({ pokemonReducer, timerReducer });
+export default combineReducers({ pokemonReducer, pokemonTimerReducer });

@@ -52,7 +52,7 @@ class LogIn extends React.Component {
         </form>
         <button
           onClick={this.onUsernameSubmmit}
-          className="RegisterLoginButton"
+          className="RegisterLogInButton"
         >
           LOG IN
         </button>

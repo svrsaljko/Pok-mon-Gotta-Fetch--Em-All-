@@ -128,7 +128,7 @@ export default class Register extends React.Component {
         </form>
         <button
           onClick={this.onUsernameSubmmit}
-          className="RegisterLoginButton"
+          className="RegisterLogInButton"
         >
           REGISTER
         </button>
