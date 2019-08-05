@@ -39,7 +39,7 @@ export const logInWithToken = (token, history) => {
   let username = getUsernameFromToken(token);
   setTokenToLocalStorage(token, username);
   if (isUserAuthenticated()) {
-    history.push(`/user/${username}`);
+    history.push(`/home/${username}`);
   }
 };
 

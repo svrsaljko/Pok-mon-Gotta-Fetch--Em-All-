@@ -10,7 +10,7 @@ import Shop from "../pokemonImages/Shop1.png";
 import Home from "../pokemonImages/Home1.png";
 import User from "../pokemonImages/User.png";
 import { NavLink, withRouter } from "react-router-dom";
-import { logOut } from "../components/AuthService";
+import { logOut, getUsername } from "../components/AuthService";
 
 class NavBar extends React.Component {
   state = {
@@ -18,11 +18,15 @@ class NavBar extends React.Component {
     userImg: User,
     homeImg: Home,
     shopImg: Shop,
-    logOutImg: LogOut
+    logOutImg: LogOut,
+    onHomeFlag: false,
+    onUserFlag: false,
+    onPokedexFlag: false,
+    onShopFlag: false
   };
 
   checkPath = linkToPath => {
-    this.changeActiveComponentState();
+    //this.changeActiveComponentState();
     let { pathname } = this.props.location;
     if (linkToPath === pathname) {
       return true;
@@ -41,18 +45,21 @@ class NavBar extends React.Component {
     // }
   };
 
-  componentDidMount() {
-    console.log("CMD");
-    if (this.checkPath("/user/stipe")) {
-      this.setState({ homeImg: HomeHover });
+  checkActiveLink = () => {
+    if (this.checkPath("/home/stipe")) {
+      this.setState({ homeImg: HomeHover, onHomeFlag: true });
     } else {
-      this.setState({ homeImg: Home });
+      this.setState({ homeImg: Home, onHomeFlag: false });
     }
     if (this.checkPath("/data")) {
       this.setState({ userImg: UserHover });
     } else {
       this.setState({ userImg: User });
     }
+  };
+
+  componentDidMount() {
+    console.log("CMD");
   }
 
   render() {
@@ -63,7 +70,8 @@ class NavBar extends React.Component {
           activeStyle={{
             borderBottom: "2px solid #00d8ff"
           }}
-          to="/user/stipe"
+          to={`/home/${getUsername()}`}
+          onClick={this.checkActiveLink}
         >
           <img
             className="NavIconImg"
@@ -73,15 +81,14 @@ class NavBar extends React.Component {
               this.setState({ homeImg: HomeHover });
             }}
             onMouseOut={() => {
-              if (this.checkPath("user/stipe")) {
+              if (this.state.onHomeFlag === false)
                 this.setState({ homeImg: Home });
-              }
             }}
           />
         </NavLink>
         <NavLink
           className="NavLink"
-          to="/data"
+          to={`/user/${getUsername()}`}
           activeStyle={{
             borderBottom: "2px solid #00d8ff"
           }}
@@ -94,16 +101,14 @@ class NavBar extends React.Component {
               this.setState({ userImg: UserHover });
             }}
             onMouseOut={() => {
-              if (this.checkPath("/data")) {
-                this.setState({ userImg: UserHover });
-              }
+              this.setState({ userImg: User });
             }}
           />
         </NavLink>
 
         <NavLink
           className="NavLink"
-          to="/pokedex"
+          to={`/pokedex/${getUsername()}`}
           activeStyle={{
             borderBottom: "2px solid #00d8ff"
           }}
@@ -122,7 +127,7 @@ class NavBar extends React.Component {
         </NavLink>
 
         <NavLink
-          to="/shop"
+          to={`/shop/${getUsername()}`}
           activeStyle={{
             borderBottom: "2px solid #00d8ff"
           }}

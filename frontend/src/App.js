@@ -4,6 +4,8 @@ import PokemonAndCoins from "./pages/PokemonAndCoins";
 import UserProfile from "./pages/UserProfile";
 import Register from "./pages/Register";
 import LogIn from "./pages/LogIn";
+import Pokedex from "./pages/Pokedex";
+import Shop from "./pages/Shop";
 import ErrorComponent from "./pages/ErrorComponent";
 import { PrivateRoute, PublicRoute } from "./components/Routes";
 import { Switch, BrowserRouter as Router } from "react-router-dom";
@@ -19,10 +21,16 @@ class App extends Component {
           <Switch>
             <PrivateRoute
               exact
-              path="/user/:username"
+              path="/home/:username"
               component={PokemonAndCoins}
             />
-            <PrivateRoute exact path="/data" component={UserProfile} />
+            <PrivateRoute
+              exact
+              path="/user/:username"
+              component={UserProfile}
+            />
+            <PrivateRoute exact path="/pokedex/:username" component={Pokedex} />
+            <PrivateRoute exact path="/shop/:username" component={Shop} />
             <PublicRoute
               restricted={true}
               exact

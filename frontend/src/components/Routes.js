@@ -9,7 +9,7 @@ export const PublicRoute = ({ component: Component, restricted, ...rest }) => {
       {...rest}
       render={props =>
         isLoggedIn() && restricted ? (
-          <Redirect to={`/user/${getUsername()}`} />
+          <Redirect to={`/home/${getUsername()}`} />
         ) : (
           <Component {...props} />
         )
