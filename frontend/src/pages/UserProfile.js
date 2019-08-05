@@ -1,34 +1,28 @@
 import React from "react";
-import PokedexHover from "../pokemonImages/PokedexHover.png";
-import Pokedex from "../pokemonImages/Pokedex.png";
+import NavBar from "../components/NavBar";
+import { connect } from "react-redux";
+import { setHeaderFlag } from "../actions/actions";
 
 class UserProfile extends React.Component {
-  state = {
-    img: Pokedex
-  };
-
   componentDidMount() {
-    console.log("state: ", this.state.img);
+    this.props.setHeaderFlag(true);
+  }
+  componentWillUnmount() {
+    this.props.setHeaderFlag(false);
   }
 
   render() {
-    return (
-      <div>
-        WELCOME USER
-        <img
-          style={{ color: "blue", width: "50px", height: "50px" }}
-          src={this.state.img}
-          alt=""
-          onMouseEnter={() => {
-            this.setState({ img: PokedexHover });
-          }}
-          onMouseOut={() => {
-            this.setState({ img: Pokedex });
-          }}
-        />
-      </div>
-    );
+    return <div>WELCOME USER</div>;
   }
 }
 
-export default UserProfile;
+const mapDispatchToProps = dispatch => {
+  return {
+    setHeaderFlag: flag => dispatch(setHeaderFlag(flag))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(UserProfile);

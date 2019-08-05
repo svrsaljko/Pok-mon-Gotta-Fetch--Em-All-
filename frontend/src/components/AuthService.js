@@ -48,7 +48,7 @@ export const setTokenToLocalStorage = (token, username) => {
   localStorage.setItem("username", username);
 };
 
-export const logout = history => {
+export const logOut = history => {
   localStorage.clear();
   history.push("/");
 };

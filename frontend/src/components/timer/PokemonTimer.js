@@ -5,7 +5,7 @@ function PokemonTimer({ state, enableNewPokemon }) {
   let { days, hours, minutes, seconds } = state;
 
   return (
-    <div className="TimerContainer">
+    <div className="PokemonTimerContainer">
       Time to new pokemon:
       {enableNewPokemon ? (
         <div>Catch new pokemon!!</div>

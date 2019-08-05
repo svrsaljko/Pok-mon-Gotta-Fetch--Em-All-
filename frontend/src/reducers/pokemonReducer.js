@@ -1,6 +1,11 @@
-import { ENABLE_NEW_POKEMON, SET_POKEMON_STATE } from "../actions/types.js";
+import {
+  ENABLE_NEW_POKEMON,
+  SET_POKEMON_STATE,
+  SET_HEADER_FLAG
+} from "../actions/types.js";
 
 const initState = {
+  headerFlag: false,
   pokemonName: "\n",
   pokemonId: "#???",
   pokemonType: "\n",
@@ -10,6 +15,12 @@ const initState = {
 
 const pokemonReducer = (state = initState, action) => {
   switch (action.type) {
+    case SET_HEADER_FLAG:
+      let { flag } = action;
+      return {
+        ...state,
+        headerFlag: flag
+      };
     case ENABLE_NEW_POKEMON:
       return {
         ...state,

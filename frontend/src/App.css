@@ -1,15 +1,67 @@
+.NavIconImg {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  padding-bottom: 1rem;
+  /* border: 2px solid yellow; */
+}
+
+/* .NavLink {
+  border: 2px solid wheat;
+} */
+
+.NavLink:hover {
+  cursor: pointer;
+  border-bottom: 2px solid #00d8ff;
+}
+/* .NavIconImg:hover {
+  
+} */
+
+.NavBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 6rem;
+  min-height: 57.5px;
+}
+
+.Title {
+  font-weight: bold;
+}
+
+.Header {
+  display: flex;
+  flex-direction: row;
+  background-color: #171a19;
+  text-align: center;
+  padding-top: 0.5rem;
+  /* padding-bottom: 0.5rem;
+} */
+}
+.PokemonTimerContainer {
+  margin-top: 6rem;
+  margin-right: 6rem;
+}
+.PokeCoinsTimerContainer {
+  margin-top: 6rem;
+  margin-left: 6rem;
+}
+
 .CollectCoinsButton {
-  margin-top: 3rem;
   color: palevioletred;
   background-color: #171a19;
   border: 1px solid palevioletred;
-  font-size: 1.5rem;
+  font-size: 1rem;
   border-radius: 10px;
 }
 .CollectCoinsButton:hover {
   color: #00d8ff;
   background-color: #171a19;
   border: 1px solid #00d8ff;
+  cursor: pointer;
 }
 
 .PokemonTrainerContainer {
@@ -61,17 +113,6 @@
   align-items: center;
 }
 
-.Header {
-  background-color: #171a19;
-  text-align: center;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.Title {
-  font-weight: bold;
-}
-
 .PokemonDescription {
   width: 300px;
 }
@@ -79,10 +120,6 @@
 .UserContainer {
   margin-top: 6rem;
   margin-left: 6rem;
-}
-.TimerContainer {
-  margin-top: 6rem;
-  margin-right: 6rem;
 }
 
 .PokemonContainer {
@@ -110,17 +147,7 @@
   cursor: pointer;
   font-size: 1rem;
 }
-.CollectCoinsButton {
-  background-color: #171a19;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-}
-.UserButton:hover {
-  color: #00d8ff;
-}
 
-.CollectCoinsButton:hover {
+.UserButton:hover {
   color: #00d8ff;
 }

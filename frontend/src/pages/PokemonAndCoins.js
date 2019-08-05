@@ -1,16 +1,17 @@
 import React, { Component } from "react";
+import NavBar from "../components/NavBar";
 import PokemonTimer from "../components/timer/PokemonTimer";
-import CollectPokeCoins from "../components/CollectPokeCoins";
+import PokeCoinsTimer from "../components/PokeCoinsTimer";
 import Pokemon from "../components/pokemon/Pokemon";
 import { NEW_POKEMON_URL, TIMER_URL, SECOND } from "../components/Helper";
 import {
+  setHeaderFlag,
   setTimerState,
   enableNewPokemon,
   setPokemonState
 } from "../actions/actions";
 import {
   isUserAuthenticated,
-  logout,
   redirectToError,
   getUsername
 } from "../components/AuthService";
@@ -90,29 +91,28 @@ export class PokemonAndCoins extends Component {
   };
 
   componentDidMount() {
+    this.props.setHeaderFlag(true);
     this.onParamsChange();
     this.initializeExpirationTime().then(this.pokeTimerCall());
   }
 
+  componentWillUnmount() {
+    this.props.setHeaderFlag(false);
+  }
+
   render() {
-    //console.log("params", this.props.match.params.username);
+    //console.log("props", this.props);
     //redirectToError(this.props.history, this.props.match.params.username);
     return (
-      <div className="PokemonContainer">
-        <CollectPokeCoins />
-
-        {/* <div className="PokemonTrainerContainer">
-          <button
-            className="LogOutButton"
-            onClick={() => {
-              logout(this.props.history);
-            }}
-          >
-            LOGOUT
-          </button>
-        </div> */}
-        <Pokemon newPokemonOnClick={this.newPokemonOnClick} />
-        <PokemonTimer />
+      <div
+        style={{ display: "flex", flexDirection: "column" }}
+        className="HomeContainer"
+      >
+        <div className="PokemonContainer">
+          <PokeCoinsTimer />
+          <Pokemon newPokemonOnClick={this.newPokemonOnClick} />
+          <PokemonTimer />
+        </div>
       </div>
     );
   }
@@ -128,7 +128,8 @@ const mapDispatchToProps = dispatch => {
   return {
     setTimerState: distance => dispatch(setTimerState(distance)),
     enableNewPokemon: () => dispatch(enableNewPokemon()),
-    setPokemonState: pokemon => dispatch(setPokemonState(pokemon))
+    setPokemonState: pokemon => dispatch(setPokemonState(pokemon)),
+    setHeaderFlag: flag => dispatch(setHeaderFlag(flag))
   };
 };
 

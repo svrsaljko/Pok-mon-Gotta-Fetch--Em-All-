@@ -13,15 +13,16 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
         <Router>
+          <Header />
+
           <Switch>
             <PrivateRoute
               exact
               path="/user/:username"
               component={PokemonAndCoins}
             />
-            <PrivateRoute exact path="/useraa" component={UserProfile} />
+            <PrivateRoute exact path="/data" component={UserProfile} />
             <PublicRoute
               restricted={true}
               exact
