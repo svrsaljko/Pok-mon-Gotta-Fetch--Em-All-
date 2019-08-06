@@ -13,7 +13,9 @@ import {
 import {
   isUserAuthenticated,
   redirectToError,
-  getUsername
+  getUsername,
+  getIdFromLocalStorage,
+  setExpirationDateToLocalStorage
 } from "../components/AuthService";
 import { connect } from "react-redux";
 
@@ -90,11 +92,43 @@ export class PokemonAndCoins extends Component {
     }
   };
 
+  checkTheTimer = userId => {
+    fetch(`${TIMER_URL}/check`, {
+      method: "POST",
+      body: JSON.stringify({ userId }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.flag) {
+          setExpirationDateToLocalStorage(res.data);
+        }
+        console.log("res", res);
+      })
+      .catch();
+  };
+
+  patchIdToTimer = userId => {
+    fetch(TIMER_URL, {
+      method: "PATCH",
+      body: JSON.stringify({ userId }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => console.log("PATCH res:", res))
+      .catch(error => console.error(error));
+  };
+
   componentDidMount() {
+    //this.patchIdToTimer(getIdFromLocalStorage());
+    this.checkTheTimer(getIdFromLocalStorage());
     console.log("APP JS CDM", this.props.state.pokemonReducer.enableNewPokemon);
     this.props.setHeaderFlag(true);
     this.onParamsChange();
-    this.initializeExpirationTime().then(this.pokeTimerCall());
+    //this.initializeExpirationTime().then(this.pokeTimerCall());
   }
 
   componentWillUnmount() {

@@ -37,15 +37,27 @@ export const logIn = (usernameMail, password, history) => {
 
 export const logInWithToken = (token, history) => {
   let username = getUsernameFromToken(token);
-  setTokenToLocalStorage(token, username);
+  //console.log("username::", username);
+  let id = getIdFromToken(token);
+  //console.log("id::", id);
+  setTokenToLocalStorage(token, username, id);
   if (isUserAuthenticated()) {
     history.push(`/home/${username}`);
   }
 };
 
-export const setTokenToLocalStorage = (token, username) => {
+export const setExpirationDateToLocalStorage = date => {
+  localStorage.setItem("date", date);
+};
+
+export const setTokenToLocalStorage = (token, username, id) => {
   localStorage.setItem("token", token);
   localStorage.setItem("username", username);
+  localStorage.setItem("id", id);
+};
+
+export const getIdFromLocalStorage = () => {
+  return localStorage.getItem("id");
 };
 
 export const logOut = history => {
@@ -60,8 +72,19 @@ export const getUsername = () => {
 
 export const getUsernameFromToken = token => {
   let decodedToken = decode(token);
+  console.log("decoded token", decodedToken);
   let { username } = decodedToken;
   return username;
+};
+export const getIdFromToken = token => {
+  let decodedToken = decode(token);
+  console.log("id", id);
+  let { id } = decodedToken;
+  return id;
+};
+
+export const setIdToLocalStorage = () => {
+  let id = getIdFromToken(token);
 };
 
 export const isUserAuthenticated = () => {

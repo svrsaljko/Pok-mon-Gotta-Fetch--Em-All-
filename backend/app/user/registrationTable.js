@@ -17,7 +17,7 @@ class Registration {
             reject(err);
           }
           setUserTimer
-            .setTimer(res.insertId, "uspiasam")
+            .setTimer(res.insertId, "NO_TIMER")
             .then(resolve(res))
             .catch();
         }

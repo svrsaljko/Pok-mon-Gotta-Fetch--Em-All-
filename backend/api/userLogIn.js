@@ -16,7 +16,8 @@ router.post("/login", (req, res) => {
       } else {
         let token = jwt.sign(
           {
-            username: resp[0].username
+            username: resp[0].username,
+            id: resp[0].id
           },
           privateKey
         );
