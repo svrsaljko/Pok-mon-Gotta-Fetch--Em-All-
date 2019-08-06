@@ -1,4 +1,5 @@
 const connection = require("../../database/index.js");
+const setUserTimer = require("../user/setUserTimer");
 
 class Registration {
   static register(username, mail, password) {
@@ -15,7 +16,10 @@ class Registration {
           if (err) {
             reject(err);
           }
-          resolve(res);
+          setUserTimer
+            .setTimer(res.insertId, "uspiasam")
+            .then(resolve(res))
+            .catch();
         }
       );
     });

@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const Registration = require("../app/user/registrationTable.js");
 const CheckUser = require("../app/user/checkUserTable.js");
-
 const router = new Router();
 
 router.post("/register", (req, res) => {

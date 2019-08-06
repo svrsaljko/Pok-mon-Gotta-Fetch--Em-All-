@@ -10,7 +10,7 @@ app.use(userLogInRouter);
 app.get("/pokemon/timer", (req, res) => {
   const timer = new Timer(5000);
 
-  res.json({ timer });
+  res.json({ timer: timer.expiration });
 });
 
 app.get("/pokemon/new", (req, res) => {

@@ -31,10 +31,12 @@ export class PokemonAndCoins extends Component {
   initializeExpirationTime = () => {
     return fetch(TIMER_URL).then(res => {
       res.json().then(res => {
-        let now = new Date().getTime();
-        let distance = new Date(res.timer.expiration).getTime();
-        distance -= now;
-        this.setTimerState(distance);
+        if (this.props.state.enableNewPokemon === false) {
+          let now = new Date().getTime();
+          let distance = new Date(res.timer.expiration).getTime();
+          distance -= now;
+          this.setTimerState(distance);
+        }
       });
     });
   };
@@ -48,9 +50,7 @@ export class PokemonAndCoins extends Component {
         let doEachInterval = () => {
           let now = new Date().getTime();
           let distance = countdown - now;
-
           this.setTimerState(distance);
-
           if (distance < 0) {
             clearInterval(timer);
             this.enableNewPokemon().then(this.initializeExpirationTime());
@@ -91,6 +91,7 @@ export class PokemonAndCoins extends Component {
   };
 
   componentDidMount() {
+    console.log("APP JS CDM", this.props.state.pokemonReducer.enableNewPokemon);
     this.props.setHeaderFlag(true);
     this.onParamsChange();
     this.initializeExpirationTime().then(this.pokeTimerCall());
@@ -101,7 +102,10 @@ export class PokemonAndCoins extends Component {
   }
 
   render() {
-    //console.log("props", this.props);
+    console.log(
+      "APP JS RENDER",
+      this.props.state.pokemonReducer.enableNewPokemon
+    );
     //redirectToError(this.props.history, this.props.match.params.username);
     return (
       <div
