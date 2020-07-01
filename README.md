@@ -38,7 +38,7 @@
 
 ## Complete 1st generation
 
- <img  alt="pokemon image" src="./readmeImages/pokemon16.PNG">
+ <img  alt="pokemon image" src="./readmeImages/pokemon16.png">
 
 ### Register your account now
 
