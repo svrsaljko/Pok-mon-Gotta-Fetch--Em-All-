@@ -1,9 +1,3 @@
-<img
-        src='./readmeImages/pokemon.PNG'
-        alt="Pokemon title"
-        width="700"
-      />
-
 # Gotta Fetch 'Em All
 
 ### Who's That Pokémon?
@@ -12,9 +6,17 @@
 
 ### Let's find out ...
 
-### Don't forget your coins ...
+### Don't forget collect your coins ...
 
 <img src='./readmeImages/pokemon6.PNG' alt="Pokemon menu"/>
+
+### Gotcha!
+
+### CATERPIE was caught!
+
+### CATERPIE's data was added to POKéDEX.
+
+<img src='./readmeImages/pokemon13.PNG' alt="Pokemon data"/>
 
 ## Fetch your favourite starter
 
