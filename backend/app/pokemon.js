@@ -4,7 +4,7 @@ const Pokedex = pokemonList.PokemonList;
 const randomPokemon = {
   get pokemon() {
     // const Pokemon = Pokedex[Math.floor(Math.random() * Pokedex.length)];
-    const Pokemon = Pokedex[9];
+    const Pokemon = Pokedex[7];
     return Pokemon;
   },
   get birthdate() {
