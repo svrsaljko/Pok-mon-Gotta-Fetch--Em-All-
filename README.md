@@ -6,7 +6,7 @@
 
 ### Let's find out ...
 
-### Don't forget collect your coins ...
+### Don't forget to collect your coins ...
 
 <img src='./readmeImages/pokemon6.PNG' alt="Pokemon menu"/>
 
@@ -34,12 +34,12 @@
 
 ## Pokefood
 
-## Pokedex list
+## Pokedex
 
 ## Complete 1st generation
 
  <img  alt="pokemon image" src="./readmeImages/pokemon16.png">
 
-### Register your account now
+### Sign in, now !!
 
  <img  alt="pokemon registration" src="./readmeImages/pokemon1.PNG">
