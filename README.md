@@ -6,11 +6,8 @@
 
 ## Fetch your favourite starter
 
-|     |     |     |
 | :-: | :-: | :-: |
-
 
 |<img
         src='./readmeImages/pokemon7.PNG'
-        alt="Pokemon image"/>| <img  src='./readmeImages/pokemon11.PNG' alt="Pokemon image" /> | <img   src='./readmeImages/pokemon12.PNG'
-        alt="Pokemon image"/>|
+        alt="Pokemon image"/>| <img  src='./readmeImages/pokemon11.PNG' alt="Pokemon image" /> | <img   src='readmeImages/pokemon12.PNG' alt="Pokemon image"/>|
