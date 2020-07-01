@@ -1,12 +1,12 @@
-const connection = require("../../database/index.js");
+const connection = require('../../database/index.js');
 
 class CheckUser {
   static usernameExist(username) {
     return new Promise((resolve, reject) => {
       connection.query(
-        "SELECT username FROM `user` WHERE username=(?);",
+        'SELECT username FROM `users` WHERE username=(?);',
         username,
-        function(err, res) {
+        function (err, res) {
           if (err) {
             reject(err);
           } else {
@@ -20,9 +20,9 @@ class CheckUser {
   static mailExist(mail) {
     return new Promise((resolve, reject) => {
       connection.query(
-        "SELECT mail FROM `user` WHERE mail=(?);",
+        'SELECT mail FROM `users` WHERE mail=(?);',
         mail,
-        function(err, res) {
+        function (err, res) {
           if (err) {
             reject(err);
           } else {

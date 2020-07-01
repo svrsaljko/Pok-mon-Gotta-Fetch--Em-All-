@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Pokeball,
   Bulbasaur,
@@ -15,9 +15,9 @@ import {
   Butterfree,
   Weedle,
   Kakuna,
-  Beedrill
-} from "../../pokemonImages/index.js";
-import { connect } from "react-redux";
+  Beedrill,
+} from '../../pokemonImages/index.js';
+import { connect } from 'react-redux';
 
 const pokemon = [
   Pokeball,
@@ -35,7 +35,7 @@ const pokemon = [
   Butterfree,
   Weedle,
   Kakuna,
-  Beedrill
+  Beedrill,
 ];
 
 class PokemonImage extends React.Component {
@@ -63,7 +63,7 @@ class PokemonImage extends React.Component {
         className="PokemonImage"
         src={pokemon[index]}
         style={{
-          opacity: index === 0 ? (enableNewPokemon ? "1" : "0.3") : "1"
+          opacity: index === 0 ? (enableNewPokemon ? '1' : '0.3') : '1',
         }}
         alt="Pokemon picture"
       />
@@ -71,12 +71,12 @@ class PokemonImage extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { enableNewPokemon } = state.pokemonReducer;
   let { pokemonName } = state.pokemonReducer;
   return {
     pokemonName,
-    enableNewPokemon
+    enableNewPokemon,
   };
 };
 

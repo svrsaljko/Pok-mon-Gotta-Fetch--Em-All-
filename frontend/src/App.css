@@ -83,6 +83,7 @@
   color: #00d8ff;
   background-color: #171a19;
   border: 1px solid #00d8ff;
+  cursor: pointer;
 }
 .LogOutButton {
   color: palevioletred;

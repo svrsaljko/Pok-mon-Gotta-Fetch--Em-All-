@@ -1,69 +1,74 @@
-import React, { Component } from "react";
-import NavBar from "../components/NavBar";
-import PokemonTimer from "../components/timer/PokemonTimer";
-import PokeCoinsTimer from "../components/PokeCoinsTimer";
-import Pokemon from "../components/pokemon/Pokemon";
-import { NEW_POKEMON_URL, TIMER_URL, SECOND } from "../components/Helper";
+import React, { Component } from 'react';
+import NavBar from '../components/NavBar';
+import PokemonTimer from '../components/timer/PokemonTimer';
+import PokeCoinsTimer from '../components/PokeCoinsTimer';
+import Pokemon from '../components/pokemon/Pokemon';
+import { NEW_POKEMON_URL, TIMER_URL, SECOND } from '../components/Helper';
 import {
   setHeaderFlag,
   setTimerState,
   enableNewPokemon,
-  setPokemonState
-} from "../actions/actions";
+  setPokemonState,
+} from '../actions/actions';
 import {
   isUserAuthenticated,
   redirectToError,
   getUsername,
   getIdFromLocalStorage,
-  setExpirationDateToLocalStorage
-} from "../components/AuthService";
-import { connect } from "react-redux";
+  setExpirationDateToLocalStorage,
+} from '../components/AuthService';
+import { connect } from 'react-redux';
 
 export class PokemonAndCoins extends Component {
   enableNewPokemon = () => {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       resolve(this.props.enableNewPokemon());
     });
   };
 
-  setTimerState = distance => {
+  setTimerState = (distance) => {
     this.props.setTimerState(distance);
   };
 
-  initializeExpirationTime = () => {
-    return fetch(TIMER_URL).then(res => {
-      res.json().then(res => {
-        if (this.props.state.enableNewPokemon === false) {
-          let now = new Date().getTime();
-          let distance = new Date(res.timer.expiration).getTime();
-          distance -= now;
-          this.setTimerState(distance);
-        }
-      });
-    });
-  };
+  // initializeExpirationTime = () => {
+  //   return fetch(TIMER_URL).then((res) => {
+  //     res.json().then((res) => {
+  //       if (this.props.state.enableNewPokemon === false) {
+  //         let now = new Date().getTime();
+  //         let distance = new Date(res.timer.expiration).getTime();
+  //         distance -= now;
+  //         this.setTimerState(distance);
+  //       }
+  //     });
+  //   });
+  // };
 
   pokeTimerCall = () => {
-    fetch(TIMER_URL).then(res => {
-      res.json().then(res => {
-        expiration = res.timer.expiration;
-        let { expiration } = res.timer;
-        let countdown = new Date(expiration).getTime();
-        let doEachInterval = () => {
-          let now = new Date().getTime();
-          let distance = countdown - now;
-          this.setTimerState(distance);
-          if (distance < 0) {
-            clearInterval(timer);
-            this.enableNewPokemon().then(this.initializeExpirationTime());
-          }
-        };
-        let timer = setInterval(doEachInterval, SECOND);
-      });
-    });
+    console.log('poke timer call');
+    // fetch(TIMER_URL).then((res) => {
+    // res.json().then((res) => {
+    // expiration = res.timer.expiration;
+    // let { expiration } = res.timer;
+    // let countdown = new Date(expiration).getTime();
+    let noww = new Date().getTime();
+    let countdown = 15000 + noww;
+    let doEachInterval = () => {
+      console.log('aaaaa');
+      let now = new Date().getTime();
+      let distance = countdown - now;
+      this.setTimerState(distance);
+      if (distance < 0) {
+        clearInterval(timer);
+        this.enableNewPokemon();
+        // this.enableNewPokemon().then(this.initializeExpirationTime());
+      }
+    };
+    let timer = setInterval(doEachInterval, SECOND);
+    // });
+    // });
   };
 
-  setPokemonState = pokemon => {
+  setPokemonState = (pokemon) => {
     this.props.setPokemonState(pokemon);
   };
 
@@ -72,15 +77,15 @@ export class PokemonAndCoins extends Component {
       let { enableNewPokemon } = this.props.state.pokemonReducer;
 
       if (enableNewPokemon) {
-        fetch(NEW_POKEMON_URL).then(res => {
-          res.json().then(res => {
+        fetch(NEW_POKEMON_URL).then((res) => {
+          res.json().then((res) => {
             this.setPokemonState(res.pokemon.Pokemon);
             this.pokeTimerCall();
           });
         });
       }
     } else {
-      alert("Unauthorized access");
+      alert('Unauthorized access');
     }
   };
 
@@ -92,40 +97,41 @@ export class PokemonAndCoins extends Component {
     }
   };
 
-  checkTheTimer = userId => {
-    fetch(`${TIMER_URL}/check`, {
-      method: "POST",
-      body: JSON.stringify({ userId }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => res.json())
-      .then(res => {
-        if (res.flag) {
-          setExpirationDateToLocalStorage(res.data);
-        }
-        console.log("res", res);
-      })
-      .catch();
-  };
+  // checkTheTimer = (userId) => {
+  //   fetch(`${TIMER_URL}/check`, {
+  //     method: 'POST',
+  //     body: JSON.stringify({ userId }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       if (res.flag) {
+  //         // setExpirationDateToLocalStorage(res.data);
+  //         // setExpirationDateToLocalStorage(10000);
+  //       }
+  //       console.log('res', res);
+  //     })
+  //     .catch();
+  // };
 
-  patchIdToTimer = userId => {
+  patchIdToTimer = (userId) => {
     fetch(TIMER_URL, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify({ userId }),
       headers: {
-        "Content-Type": "application/json"
-      }
+        'Content-Type': 'application/json',
+      },
     })
-      .then(res => console.log("PATCH res:", res))
-      .catch(error => console.error(error));
+      .then((res) => console.log('PATCH res:', res))
+      .catch((error) => console.error(error));
   };
 
   componentDidMount() {
     //this.patchIdToTimer(getIdFromLocalStorage());
-    this.checkTheTimer(getIdFromLocalStorage());
-    console.log("APP JS CDM", this.props.state.pokemonReducer.enableNewPokemon);
+    this.pokeTimerCall();
+    // this.checkTheTimer(getIdFromLocalStorage());
     this.props.setHeaderFlag(true);
     this.onParamsChange();
     //this.initializeExpirationTime().then(this.pokeTimerCall());
@@ -136,14 +142,9 @@ export class PokemonAndCoins extends Component {
   }
 
   render() {
-    console.log(
-      "APP JS RENDER",
-      this.props.state.pokemonReducer.enableNewPokemon
-    );
-    //redirectToError(this.props.history, this.props.match.params.username);
     return (
       <div
-        style={{ display: "flex", flexDirection: "column" }}
+        style={{ display: 'flex', flexDirection: 'column' }}
         className="HomeContainer"
       >
         <div className="PokemonContainer">
@@ -156,22 +157,19 @@ export class PokemonAndCoins extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    state
+    state,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setTimerState: distance => dispatch(setTimerState(distance)),
+    setTimerState: (distance) => dispatch(setTimerState(distance)),
     enableNewPokemon: () => dispatch(enableNewPokemon()),
-    setPokemonState: pokemon => dispatch(setPokemonState(pokemon)),
-    setHeaderFlag: flag => dispatch(setHeaderFlag(flag))
+    setPokemonState: (pokemon) => dispatch(setPokemonState(pokemon)),
+    setHeaderFlag: (flag) => dispatch(setHeaderFlag(flag)),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PokemonAndCoins);
+export default connect(mapStateToProps, mapDispatchToProps)(PokemonAndCoins);

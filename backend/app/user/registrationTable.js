@@ -1,23 +1,23 @@
-const connection = require("../../database/index.js");
-const setUserTimer = require("../user/setUserTimer");
+const connection = require('../../database/index.js');
+const setUserTimer = require('../user/setUserTimer');
 
 class Registration {
   static register(username, mail, password) {
     return new Promise((resolve, reject) => {
       connection.query(
-        "INSERT INTO `user` (username,mail,password) VALUES (" +
+        'INSERT INTO `users` (username,mail,password) VALUES (' +
           connection.escape(username) +
-          ", " +
+          ', ' +
           connection.escape(mail) +
-          ", " +
+          ', ' +
           connection.escape(password) +
-          ")",
-        function(err, res) {
+          ')',
+        function (err, res) {
           if (err) {
             reject(err);
           }
           setUserTimer
-            .setTimer(res.insertId, "NO_TIMER")
+            .setTimer(res.insertId, 'NO_TIMER')
             .then(resolve(res))
             .catch();
         }

@@ -1,3 +1,4 @@
-# Pokemon-gotta-catch-em-all
-
-React,Redux,NodeJS,MySQL project
+<img
+        src='./readmeImages/pokemon.PNG'
+        alt="Pokemon title"
+      />
