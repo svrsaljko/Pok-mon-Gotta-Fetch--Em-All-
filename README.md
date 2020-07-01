@@ -29,3 +29,17 @@
 |                                                              |                                                               |                                                               |
 | :----------------------------------------------------------: | :-----------------------------------------------------------: | :-----------------------------------------------------------: |
 | <img  alt="pokemon image" src="./readmeImages/pokemon8.PNG"> | <img  alt="pokemon image" src="./readmeImages/pokemon14.PNG"> | <img  alt="pokemon image" src="./readmeImages/pokemon15.PNG"> |
+
+### Coming soon !
+
+## Pokefood
+
+## Pokedex list
+
+## Complete 1st generation
+
+ <img  alt="pokemon image" src="./readmeImages/pokemon16.PNG">
+
+### Register your account now
+
+ <img  alt="pokemon registration" src="./readmeImages/pokemon1.PNG">
