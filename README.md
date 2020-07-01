@@ -12,6 +12,5 @@
 
 |<img
         src='./readmeImages/pokemon7.PNG'
-        alt="Pokemon title"/>|<img  src='./readmeImages/pokemon11.PNG' alt="Pokemon title" />|<img   src='./readmeImagespokemon12.PNG'
-        alt="Pokemon title"
-        />|
+        alt="Pokemon title"/>| <img  src='./readmeImages/pokemon11.PNG' alt="Pokemon title" /> | <img   src='./readmeImagespokemon12.PNG'
+        alt="Pokemon title"/>|
