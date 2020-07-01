@@ -24,7 +24,7 @@
 | :----------------------------------------------------------: | :-----------------------------------------------------------: | :-----------------------------------------------------------: |
 | <img  alt="pokemon image" src="./readmeImages/pokemon7.PNG"> | <img  alt="pokemon image" src="./readmeImages/pokemon11.PNG"> | <img  alt="pokemon image" src="./readmeImages/pokemon12.PNG"> |
 
-## Train your team to become stronger!!
+## Train your team to evolve & become stronger!!
 
 |                                                              |                                                               |                                                               |
 | :----------------------------------------------------------: | :-----------------------------------------------------------: | :-----------------------------------------------------------: |
